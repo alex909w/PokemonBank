@@ -1,0 +1,92 @@
+/* Estilo inspirado en los colores de Pokémon */
+body {
+    background: url('../img/login/fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* Contenedor del login centrado */
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.vh-100 {
+    height: 100vh;
+}
+
+/* Estilo del contenedor del login */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Logo de Pokémon Bank */
+.pokemon-logo {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+/* Título con estilo Pokémon */
+.login-title {
+    font-size: 28px;
+    color: #ffcb05;
+    text-shadow: 2px 2px #3b4cca;
+    margin-bottom: 10px;
+}
+
+/* Estilo del input del PIN */
+.pin-label {
+    font-weight: bold;
+    color: #3b4cca;
+}
+
+.pin-input {
+    font-size: 24px;
+    padding: 10px;
+    letter-spacing: 8px;
+    text-align: center;
+    border: 2px solid #3b4cca;
+    border-radius: 10px;
+}
+
+/* Estilo del botón de login */
+.btn-login {
+    width: 100%;
+    font-weight: bold;
+    background-color: #ffcb05;
+    color: #3b4cca;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-login:hover {
+    background-color: #3b4cca;
+    color: #ffcb05;
+}
+
+#error-message {
+    color: red; /* Cambia el color del texto a rojo */
+    font-size: 14px; /* Tamaño de la fuente */
+    margin-top: 40px; /* Espacio superior para separar del botón */
+    text-align: center; /* Centra el texto */
+    display: none; /* Inicialmente, el mensaje está oculto */
+    font-family: 'Press Start 2P', cursive; /* Fuente específica (opcional) */
+}

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Bank - Acciones</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container text-center mt-4">
+            <!-- Aquí puedes agregar un encabezado si es necesario -->
+        </div>
+    </header>
+    <div class="container text-center">
+        <div class="actions-container">
+
+            <!-- Información del usuario -->
+            <div class="user-info">
+                <h2 id="user-name">Ash Ketchum</h2>
+                <p id="user-account">Cuenta: 0987654321</p>
+            </div>
+
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-success btn-lg btn-action" data-toggle="modal" data-target="#depositarModal">
+                        <img src="img/acciones/depositar.png" alt="Depositar" class="btn-icon"> DEPOSITAR
+                    </button>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-danger btn-lg btn-action" data-toggle="modal" data-target="#retirarModal">
+                        <img src="img/acciones/retirar.png" alt="Retirar" class="btn-icon"> RETIRAR
+                    </button>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-info btn-lg btn-action" data-toggle="modal"
+                        data-target="#consultarSaldoModal">
+                        <img src="img/acciones/consultar.png" alt="Consultar Saldo" class="btn-icon"> CONSULTAR SALDO
+                    </button>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal"
+                        data-target="#pagarServiciosModal">
+                        <img src="img/acciones/pagos.png" alt="Pagar Servicios" class="btn-icon"> PAGAR SERVICIOS
+                    </button>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal" data-target="#historialModal">
+                        <img src="img/acciones/pagos.png" alt="Historial" class="btn-icon"> HISTORIAL DE TRANSACCIONES
+                    </button>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal" data-target="#graficosModal">
+                        <img src="img/acciones/pagos.png" alt="Grafica" class="btn-icon"> GRÁFICOS DE TRANSACCIONES
+                    </button>
+                </div>
+            </div>
+            <button class="btn btn-danger btn-lg btn-logout" data-toggle="modal"
+                data-target="#salirModal">SALIR</button>
+        </div>
+    </div>
+
+    <!-- Modales para acciones -->
+    <div class="modal fade" id="depositarModal" tabindex="-1" role="dialog" aria-labelledby="depositarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="deposit-page-container">
+                    <h2>Depositar Dinero</h2>
+                    <form id="deposit-form">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" id="deposit-amount" class="form-control" placeholder="0.00" min="0"
+                                required>
+                        </div>
+                        <!-- Contenedor para los botones -->
+                        <div class="button-container">
+                            <button type="submit" class="btn btn-primary">Depositar</button>
+                            <a href="acciones.html" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </form>
+                    <p id="deposit-result"></p>
+                </div>
+                <!-- Modal para generar el voucher -->
+                <div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="voucherModalLabel">Generar Voucher</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Deseas generar un voucher del depósito?
+                            </div>
+                            <div class="modal-footer">
+                                <button id="noVoucher" type="button" class="btn btn-secondary">No</button>
+                                <button id="generateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="optionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="optionModalLabel">¿Qué deseas hacer ahora?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Selecciona una opción para continuar.
+                            </div>
+                            <div class="modal-footer">
+                                <button id="retryDeposit" type="button" class="btn btn-secondary">Volver a Depositar</button>
+                                <button id="goToMenu" type="button" class="btn btn-primary">Volver al Menú Principal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+                <!-- Modal para opciones después de depositar -->
+                <div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="optionModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="optionModalLabel">¿Qué deseas hacer ahora?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Selecciona una opción para continuar.
+                            </div>
+                            <div class="modal-footer">
+                                <button id="retryDeposit" type="button" class="btn btn-secondary">Volver a
+                                    Depositar</button>
+                                <button id="goToMenu" type="button" class="btn btn-primary">Volver al Menú
+                                    Principal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="retirarModal" tabindex="-1" role="dialog" aria-labelledby="retirarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="retirarModalLabel">Retirar Dinero</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de retirar -->
+                    <h2>Retirar Dinero</h2>
+                    <form id="withdraw-form">
+                        <input type="number" id="withdraw-amount" placeholder="Monto a retirar" min="0" required>
+                        <button type="submit" class="btn">Retirar</button>
+                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                    </form>
+                    <p id="withdraw-result"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="consultarSaldoModal" tabindex="-1" role="dialog"
+        aria-labelledby="consultarSaldoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="consultarSaldoModalLabel">Consultar Saldo</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de consultar saldo -->
+                    <div class="container">
+                        <h2>Consultar Saldo</h2>
+                        <p id="balance">Saldo disponible: $0</p>
+                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pagarServiciosModal" tabindex="-1" role="dialog"
+        aria-labelledby="pagarServiciosModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pagarServiciosModalLabel">Pagar Servicios</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de pagar servicios -->
+                    <div class="container">
+                        <h2>Pagar Servicios</h2>
+                        <form id="pay-form">
+                            <div class="form-group">
+                                <label for="service-type">Selecciona un servicio</label>
+                                <select id="service-type" class="form-control" required>
+                                    <option value="" disabled selected>Selecciona un servicio</option>
+                                    <option value="Energía Eléctrica">Energía Eléctrica</option>
+                                    <option value="Internet">Internet</option>
+                                    <option value="Telefonía">Telefonía</option>
+                                    <option value="Agua Potable">Agua Potable</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pay-amount">Monto a pagar</label>
+                                <input type="number" id="pay-amount" class="form-control" placeholder="Monto a pagar"
+                                    min="0" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Pagar</button>
+                            <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                        </form>
+                        <p id="pay-result"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales para navegación -->
+    <div class="modal fade" id="historialModal" tabindex="-1" role="dialog" aria-labelledby="historialModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historialModalLabel">Historial de Transacciones</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de historial -->
+                    <div class="container">
+                        <h1>Historial de Transacciones</h1>
+
+                        <ul id="transaction-history">
+                            <!-- Transacciones se agregarán aquí -->
+                        </ul>
+
+                        <a href="acciones.html" class="btn btn-secondary">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="graficosModal" tabindex="-1" role="dialog" aria-labelledby="graficosModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="graficosModalLabel">Gráficos de Transacciones</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de gráficos -->
+                    <div class="container">
+                        <h1>Gráfico de Transacciones</h1>
+                        <canvas id="transactionsChart"></canvas>
+                        <a href="acciones.html" class="btn btn-secondary">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="salirModal" tabindex="-1" role="dialog" aria-labelledby="salirModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="salirModalLabel">Salir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal de salir -->
+                    ¿Estás seguro de que quieres salir?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="index.html" class="btn btn-danger">Salir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script src="js/acciones.js"></script>
+    <script src="js/depositar.js"></script>
+    <script src="js/retirar.js"></script>
+    <script src="js/balance.js"></script>
+    <script src="js/pagodeservicios.js"></script>
+    <script src="js/historial.js"></script>
+    <script src="js/graficas.js"></script>
+
+</body>
+
+</html>

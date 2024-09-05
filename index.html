@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Bank - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styleindex.css">
+    <link rel="icon" href="..img/icono/favicon.jpg" type="image/x-icon">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="login-container text-center">
+            <img src="img/login/logo.svg" alt="Pokémon Bank Logo" class="pokemon-logo">
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="pin" class="pin-label">Ingrese su PIN</label>
+                    <input type="password" id="pin" name="pin" class="form-control pin-input" maxlength="4" placeholder="****" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-login">Ingresar</button>
+            </form>
+            <p id="error-message"></p>
+        </div>
+        <script src="js/login.js"></script>
+    </div>
+</body>
+</html>

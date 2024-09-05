@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Bank - Pago de Servicios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css"> <!-- Tu archivo CSS separado -->
+</head>
+<body>
+    <!-- Menú Principal -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../img/login/logo.svg" alt="Pokémon Bank Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn-logout" href="../acciones.html">MENÚ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-logout" href="../historial.html">HISTORIAL DE TRANSACCIONES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-logout" href="../graficos.html">GRÁFICOS DE TRANSACCIONES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-logout" href="../index.html">SALIR</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Pagar Servicios</h2>
+        <form id="pay-form">
+            <div class="form-group">
+                <label for="service-type">Selecciona un servicio</label>
+                <select id="service-type" class="form-control" required>
+                    <option value="" disabled selected>Selecciona un servicio</option>
+                    <option value="Energía Eléctrica">Energía Eléctrica</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Telefonía">Telefonía</option>
+                    <option value="Agua Potable">Agua Potable</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pay-amount">Monto a pagar</label>
+                <input type="number" id="pay-amount" class="form-control" placeholder="Monto a pagar" min="0" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Pagar</button>
+            <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+        </form>
+        <p id="pay-result"></p>
+    </div>
+
+    <script src="../js/pagodeservicios.js"></script>
+</body>
+</html>
