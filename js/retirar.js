@@ -86,6 +86,7 @@ document.getElementById('goToMenu').addEventListener('click', function() {
 function recordTransaction(description, voucher) {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
     const date = new Date().toLocaleString();
+}
 
     transactions.push({ description, voucher, date });
 function recordTransaction(id, description) {
