@@ -15,16 +15,6 @@ document.getElementById('withdraw-form').addEventListener('submit', function(eve
 
             result.textContent = `Has retirado $${amount}. Nuevo saldo: $${currentBalance}`;
 
-            // Registrar la transacción y generar voucher
-            const voucher = generateVoucher(amount, currentBalance);
-            recordTransaction(`Retiro: $${amount}`, voucher);
-
-            // Mostrar el voucher en el modal
-            voucherSection.innerHTML = `<pre>${voucher}</pre>`;
-
-            // Mostrar el modal de voucher
-            $('#voucherModal').modal('show');
-
             // Generamos un ID generico para deposito y lo almacenamos en localstorage
             let iniciales = 'RE'
             let digitos = '1234567890'
@@ -35,8 +25,16 @@ document.getElementById('withdraw-form').addEventListener('submit', function(eve
             let id_retiro = iniciales + id
             localStorage.setItem('id_retiro', id_retiro);
 
-            // Registrar transacción
-            recordTransaction( id_retiro, `Retiro: $${amount}`);
+            // Registrar la transacción y generar voucher
+            const voucher = generateVoucher(id_retiro, amount, currentBalance);
+            recordTransaction(id_retiro, `Retiro: $${amount}`, voucher);
+
+            // Mostrar el voucher en el modal
+            voucherSection.innerHTML = `<pre>${voucher}</pre>`;
+
+            // Mostrar el modal de voucher
+            $('#voucherModal').modal('show');
+
         } else {
             result.textContent = 'Saldo insuficiente para realizar el retiro.';
             voucherSection.innerHTML = ''; // Limpiar voucher si el retiro falla
@@ -51,8 +49,9 @@ document.getElementById('withdraw-form').addEventListener('submit', function(eve
 document.getElementById('generateVoucher').addEventListener('click', function() {
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
     let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+    let id_transaccion = localStorage.getItem('id_retiro')
 
-    generateVoucherPDF(amount, currentBalance);
+    generateVoucherPDF(id_transaccion, amount, currentBalance);
 
     // Cerrar el modal de voucher y mostrar el de opciones
     $('#voucherModal').modal('hide');
@@ -83,18 +82,11 @@ document.getElementById('goToMenu').addEventListener('click', function() {
 });
 
 // Función para registrar la transacción
-function recordTransaction(description, voucher) {
-    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    const date = new Date().toLocaleString();
-}
-
-    transactions.push({ description, voucher, date });
-function recordTransaction(id, description) {
+function recordTransaction(id_retiro, description, voucher = '') {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
     const date = new Date().toLocaleString();
 
-    transactions.push({ id, description, date });
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+    transactions.push({ id_retiro, description, voucher, date });
 }
 
 // Función para generar el voucher en formato PDF
@@ -112,9 +104,9 @@ function generateVoucherPDF(amount, currentBalance) {
     doc.text(`Fecha y Hora: ${date}`, 20, 30);
     doc.text(`Nombre: ${userName}`, 20, 40);
     doc.text(`Número de Cuenta: ${accountNumber}`, 20, 50);
-    doc.text(`Monto Retirado: $${amount}`, 20, 60);
-    doc.text(`Nuevo Saldo: $${currentBalance}`, 20, 70);
-    doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 80);
+    doc.text(`Monto Retirado: $${amount}`, 20, 70);
+    doc.text(`Nuevo Saldo: $${currentBalance}`, 20, 80);
+    doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 90);
 
     // Guardar el PDF
     doc.save('Retiro.pdf');
