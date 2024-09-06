@@ -265,3 +265,56 @@ body {
 }
 
 /*----------------------------------------------------------------------------------------retirar----------------------------------*/
+
+/* Estilo del modal de generar voucher */
+#voucherModal .modal-title {
+    color: #3b4cca; /* Azul Pokémon */
+}
+
+#voucherModal .btn-primary {
+    background-color: #3b4cca; /* Azul Pokémon */
+}
+
+#voucherModal .btn-secondary {
+    background-color: #ffcb05; /* Amarillo Pokémon */
+    color: #000;
+}
+
+/* Estilo del modal de navegación */
+#navigationModal .modal-title {
+    color: #3b4cca; /* Azul Pokémon */
+}
+
+#navigationModal .btn-primary {
+    background-color: #3b4cca; /* Azul Pokémon */
+}
+
+#navigationModal .btn-secondary {
+    background-color: #ffcb05; /* Amarillo Pokémon */
+    color: #000;
+}
+
+/* Aplicar el estilo de los botones en el contenido del modal */
+.button-container .btn {
+    width: 45%; /* Anchura de cada botón */
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-container .btn-primary {
+    background-color: #3b4cca; /* Azul Pokémon */
+    border: none;
+}
+
+.button-container .btn-secondary {
+    background-color: #ffcb05; /* Amarillo Pokémon */
+    color: #000;
+    border: none;
+}
+
+.button-container .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

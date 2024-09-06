@@ -129,7 +129,6 @@
                     </div>
                 </div>
                 
-                
 
                 <!-- Modal para opciones después de depositar -->
                 <div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="optionModalLabel"
@@ -160,29 +159,74 @@
     </div>
     </div>
 
-    <div class="modal fade" id="retirarModal" tabindex="-1" role="dialog" aria-labelledby="retirarModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="retirarModal" tabindex="-1" role="dialog" aria-labelledby="retirarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="retirarModalLabel">Retirar Dinero</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <div class="modal-body">
                     <!-- Contenido del modal de retirar -->
                     <h2>Retirar Dinero</h2>
                     <form id="withdraw-form">
-                        <input type="number" id="withdraw-amount" placeholder="Monto a retirar" min="0" required>
-                        <button type="submit" class="btn">Retirar</button>
-                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                        <div class="input-group">
+                            <input type="number" id="withdraw-amount" class="form-control" placeholder="Monto a retirar" min="0" required>
+                        </div>
+                        <div class="button-container">
+                            <button type="submit" class="btn btn-primary">Retirar</button>
+                            <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                        </div>
                     </form>
                     <p id="withdraw-result"></p>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Menú para generar un voucher -->
+<div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="voucherModalLabel">Generar Voucher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Generar Voucher</h2>
+                <form id="voucher-form">
+                    <div class="input-group">
+                        <input type="text" id="voucher-code" class="form-control" placeholder="Código del voucher" required>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary">Generar</button>
+                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                    </div>
+                </form>
+                <p id="voucher-result"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Menú para volver a retirar dinero o volver al menú principal -->
+<div class="modal fade" id="navigationModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="navigationModalLabel">Opciones de Navegación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Opciones de Navegación</h2>
+                <div class="button-container">
+                    <a href="#retirarModal" class="btn btn-primary" data-toggle="modal" data-dismiss="modal">Volver a Retirar</a>
+                    <a href="../menu-principal.html" class="btn btn-secondary">Volver al Menú Principal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <div class="modal fade" id="consultarSaldoModal" tabindex="-1" role="dialog"
         aria-labelledby="consultarSaldoModalLabel" aria-hidden="true">

@@ -1,7 +1,5 @@
 document.getElementById('deposit-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    
-    // Obtener los valores del formulario
     const amount = parseFloat(document.getElementById('deposit-amount').value);
     const result = document.getElementById('deposit-result');
 
@@ -15,9 +13,6 @@ document.getElementById('deposit-form').addEventListener('submit', function(even
         // Registrar la transacción
         recordTransaction(`Depósito de $${amount}`);
 
-        // Limpiar el formulario después de realizar el depósito
-        document.getElementById('deposit-amount').value = '';
-        
         // Mostrar el modal para generar el voucher
         $('#voucherModal').modal('show');
         
@@ -26,29 +21,36 @@ document.getElementById('deposit-form').addEventListener('submit', function(even
     }
 });
 
-
 document.getElementById('generateVoucher').addEventListener('click', function() {
     const amount = parseFloat(document.getElementById('deposit-amount').value);
     let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
 
     generateVoucherPDF(amount, currentBalance);
 
-    // Cerrar el modal de voucher y redirigir
+    // Cerrar el modal de voucher y mostrar el de opciones
     $('#voucherModal').modal('hide');
     $('#optionModal').modal('show');
 });
 
 document.getElementById('noVoucher').addEventListener('click', function() {
-    // Cerrar el modal de voucher manualmente
+    // Cerrar el modal de voucher y mostrar el de opciones
     $('#voucherModal').modal('hide');
-
-    // Usar un delay para asegurar que el modal se cierra antes de abrir el siguiente
-    setTimeout(function() {
-        // Mostrar el modal de opciones después de que el anterior se haya cerrado
-        $('#optionModal').modal('show');
-    }); 
+    $('#optionModal').modal('show');
 });
 
+document.getElementById('retryDeposit').addEventListener('click', function() {
+    // Limpiar el campo de entrada y el resultado
+    document.getElementById('deposit-amount').value = '';
+    document.getElementById('deposit-result').textContent = '';
+    // Mostrar el modal de depósito
+    $('#depositModal').modal('show');
+    // Cerrar el modal de opciones
+    $('#optionModal').modal('hide');
+});
+
+document.getElementById('goToMenu').addEventListener('click', function() {
+    window.location.href = '../acciones.html'; // Volver al menú de acciones
+});
 
 function recordTransaction(description) {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
@@ -77,5 +79,5 @@ function generateVoucherPDF(amount, currentBalance) {
     doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 100);
 
     // Guardar el PDF
-    doc.save('voucher.pdf');
+    doc.save('Deposito.pdf');
 }
