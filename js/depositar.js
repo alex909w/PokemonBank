@@ -2,6 +2,7 @@ document.getElementById('deposit-form').addEventListener('submit', function(even
     event.preventDefault();
     const amount = parseFloat(document.getElementById('deposit-amount').value);
     const result = document.getElementById('deposit-result');
+    let id_deposito = ''
 
     if (amount > 0) {
         let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
@@ -10,8 +11,20 @@ document.getElementById('deposit-form').addEventListener('submit', function(even
 
         result.textContent = `Has depositado $${amount}. Nuevo saldo: $${currentBalance}`;
 
+        // Generamos un ID generico para deposito y lo almacenamos en localstorage
+        let id = '';
+        let iniciales = 'DE'
+        let digitos = '1234567890'
+        for (let i = 0; i < 5; i++) {
+            const digitoRandom = Math.floor(Math.random() * digitos.length)
+            id += digitos[digitoRandom]
+        }
+        id_deposito = iniciales + id
+        localStorage.setItem('id_deposito', id_deposito);
+        console.log(localStorage.getItem('id_deposito'))
+
         // Registrar la transacción
-        recordTransaction(`Depósito de $${amount}`);
+        recordTransaction(id_deposito, `Depósito de $${amount}`);
 
         // Mostrar el modal para generar el voucher
         $('#voucherModal').modal('show');
@@ -52,11 +65,11 @@ document.getElementById('goToMenu').addEventListener('click', function() {
     window.location.href = '../acciones.html'; // Volver al menú de acciones
 });
 
-function recordTransaction(description) {
+function recordTransaction(id, description) {
     const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
     const date = new Date().toLocaleString();
 
-    transactions.push({ description, date });
+    transactions.push({ id, description, date });
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 

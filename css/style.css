@@ -203,6 +203,15 @@ body {
     margin-bottom: 20px;
 }
 
+.historial-titulo {
+    display: inline-block;
+}
+
+.btn-reporte {
+    width: 9rem;
+    padding: 10px;
+}
+
 /* Input group (para el campo de monto) */
 .input-group-text {
     background-color: #3b4cca; /* Azul Pokémon */

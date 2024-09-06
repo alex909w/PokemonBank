@@ -4,6 +4,7 @@ document.getElementById('withdraw-form').addEventListener('submit', function(eve
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
     const result = document.getElementById('withdraw-result');
     const voucherSection = document.getElementById('voucher-section');
+    let id = ''
 
     if (amount > 0) {
         let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
@@ -23,6 +24,19 @@ document.getElementById('withdraw-form').addEventListener('submit', function(eve
 
             // Mostrar el modal de voucher
             $('#voucherModal').modal('show');
+
+            // Generamos un ID generico para deposito y lo almacenamos en localstorage
+            let iniciales = 'RE'
+            let digitos = '1234567890'
+            for (let i = 0; i < 5; i++) {
+                const digitoRandom = Math.floor(Math.random() * digitos.length)
+                id += digitos[digitoRandom]
+            }
+            let id_retiro = iniciales + id
+            localStorage.setItem('id_retiro', id_retiro);
+
+            // Registrar transacción
+            recordTransaction( id_retiro, `Retiro: $${amount}`);
         } else {
             result.textContent = 'Saldo insuficiente para realizar el retiro.';
             voucherSection.innerHTML = ''; // Limpiar voucher si el retiro falla
@@ -74,6 +88,11 @@ function recordTransaction(description, voucher) {
     const date = new Date().toLocaleString();
 
     transactions.push({ description, voucher, date });
+function recordTransaction(id, description) {
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    const date = new Date().toLocaleString();
+
+    transactions.push({ id, description, date });
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 

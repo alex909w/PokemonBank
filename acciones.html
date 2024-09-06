@@ -291,7 +291,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="historialModalLabel">Historial de Transacciones</h5>
+                    <h5 class="modal-title historial-titulo" id="historialModalLabel">Historial de Transacciones</h5>
+                    <button id="historial_reporte" class="btn btn-secondary btn-reporte">Generar reporte</button>
                 </div>
                 <div class="modal-body">
                     <!-- Contenido del modal de historial -->
@@ -358,6 +359,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Libreria jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.js"></script>
 
 
     <script src="js/acciones.js"></script>
@@ -367,6 +371,7 @@
     <script src="js/pagodeservicios.js"></script>
     <script src="js/historial.js"></script>
     <script src="js/graficas.js"></script>
+    <script src="js/jspdf.js"></script>
 
 </body>
 
