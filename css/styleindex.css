@@ -26,12 +26,15 @@ body {
 
 /* Estilo del contenedor del login */
 .login-container {
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    background-color: rgba(255, 255, 255, 0.45); /* Fondo blanco con opacidad */
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
     max-width: 400px;
     width: 100%;
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+    border: 1px solid rgba(255,255,255,0.225);
 }
 
 /* Logo de Pokémon Bank */
