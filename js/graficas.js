@@ -1,15 +1,78 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Cargar y mostrar historial de transacciones
+    function loadTransactionHistory() {
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        const container = document.getElementById('transaction-history');
+
+        const table = document.createElement('table');
+        table.id = 'transaction-table';
+        table.style.width = '100%';
+        table.style.tableLayout = 'fixed';
+        table.style.borderCollapse = 'collapse';
+
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        const dateHeader = document.createElement('th');
+        const idHeader = document.createElement('th');
+        const descriptionHeader = document.createElement('th');
+        const voucherHeader = document.createElement('th');
+
+        dateHeader.textContent = 'Fecha';
+        idHeader.textContent = 'ID';
+        descriptionHeader.textContent = 'Descripción';
+        voucherHeader.textContent = 'Voucher';
+        voucherHeader.classList.add('voucher-column');
+
+        headerRow.appendChild(dateHeader);
+        headerRow.appendChild(idHeader);
+        headerRow.appendChild(descriptionHeader);
+        headerRow.appendChild(voucherHeader);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        transactions.forEach((transaction, index) => {
+            const row = document.createElement('tr');
+            const dateCell = document.createElement('td');
+            const idCell = document.createElement('td');
+            const descriptionCell = document.createElement('td');
+            const voucherCell = document.createElement('td');
+
+            dateCell.textContent = transaction.date;
+            idCell.textContent = transaction.id || 'N/A';
+            descriptionCell.textContent = transaction.description;
+            voucherCell.textContent = transaction.voucher || 'N/A';
+            voucherCell.classList.add('voucher-column');
+
+            row.appendChild(dateCell);
+            row.appendChild(idCell);
+            row.appendChild(descriptionCell);
+            row.appendChild(voucherCell);
+
+            if (index < transactions.length - 1) {
+                row.style.borderBottom = '1px solid #ddd';
+            }
+
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+
+        container.innerHTML = '';
+        container.appendChild(table);
+    }
+
+    // Cargar historial de transacciones al cargar la página
+    loadTransactionHistory();
+
+    // Configurar gráfico
     const ctx = document.getElementById('transactionsChart').getContext('2d');
 
-    // Obtener transacciones del almacenamiento local
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-
-    // Filtrar las transacciones por tipo
     let deposits = transactions.filter(t => t.description.includes('Depósito'));
     let withdrawals = transactions.filter(t => t.description.includes('Retiro'));
     let payments = transactions.filter(t => t.description.includes('Pago de'));
 
-    // Preparar datos para cada categoría
     function prepareData(transactions) {
         return {
             labels: transactions.map(t => t.date),
@@ -21,13 +84,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let withdrawalData = prepareData(withdrawals);
     let paymentData = prepareData(payments);
 
-    // Función para separar fecha y hora en líneas distintas
     function formatLabel(dateTimeString) {
-        const [date, time] = dateTimeString.split(', '); // Suponiendo que el formato sea "fecha, hora"
-        return `${date}\n${time}`; // Fecha en una línea, hora en otra
+        const [date, time] = dateTimeString.split(', ');
+        return `${date}\n${time}`;
     }
 
-    // Aplicar el formato a las etiquetas
     let labels = Array.from(new Set([...depositData.labels, ...withdrawalData.labels, ...paymentData.labels]))
                       .map(formatLabel);
 
@@ -63,14 +124,31 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         options: {
+            plugins: {
+                datalabels: {
+                    display: true,
+                    color: '#FFFFFF',
+                    align: 'top',
+                    anchor: 'end',
+                    formatter: (value) => value.toFixed(2)
+                },
+                legend: {
+                    labels: {
+                        color: '#FFFFFF'
+                    }
+                }
+            },
             scales: {
                 x: {
                     beginAtZero: true,
-
+                    title: {
+                        display: true,
+                        text: 'Fecha y Hora',
+                        color: '#FFFFFF'
+                    },
                     ticks: {
                         color: '#FFFFFF',
                         callback: function(value) {
-                            // Permitir que Chart.js divida en múltiples líneas
                             return this.getLabelForValue(value).split('\n');
                         }
                     }
@@ -84,13 +162,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     ticks: {
                         color: '#FFFFFF'
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#FFFFFF' // Color de las etiquetas de la leyenda
                     }
                 }
             }

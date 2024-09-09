@@ -95,22 +95,7 @@ body {
 }
 
 /*-------------------------------------------------------------------------------DEPOSITAR-------------------------------------------------*/
-
-/* Estilos para el contenedor de la página de depósito */
-.deposit-page-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribuye el contenido con espacio entre ellos */
-    align-items: center; /* Centra los elementos horizontalmente */
-    text-align: center;
-    padding: 20px;
-    background-color: #f8f9fa; /* Color de fondo claro */
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    min-height: 300px; /* Asegura un tamaño mínimo */
-}
-
-/* Centra el modal verticalmente */
+/* Estilo general del modal */
 .modal-dialog {
     display: flex;
     align-items: center;
@@ -118,212 +103,482 @@ body {
     min-height: calc(100vh - 20px); /* Centra el modal verticalmente en la página */
     max-width: 600px; /* Ajusta el ancho máximo del modal */
     max-height: 90vh; /* Ajusta la altura máxima al 90% de la ventana del navegador */
-    
-    
-}
-
-.modal-content {
-    overflow-y: auto; /* Permite que el contenido interno del modal sea desplazable si es necesario */
-    max-height: 80vh; /* Limita la altura del contenido al 80% de la ventana del navegador */
-}
-
-/* Centrar el modal en la pantalla */
-.modal-dialog-centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 20px); /* Asegura que el modal esté centrado verticalmente */
-}
-
-.modal-dialog {
-    max-width: 500px; /* Ajusta el ancho del modal */
-    margin: auto; /* Centro horizontal */
-}
-
-.modal-content {
-    overflow: hidden; /* Evita que aparezca el scroll */
-    border-radius: 15px; /* Redondear bordes del modal */
-    max-height: 80vh; /* Limita la altura del contenido para evitar desbordamiento */
-}
-
-.modal-body {
-    padding: 20px; /* Añade espacio interno para el contenido */
-    text-align: center; /* Centra el contenido dentro del modal */
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px; /* Espaciado interno */
-}
-
-.modal-header {
-    border-bottom: none; /* Elimina la línea debajo del header */
-}
-
-.modal-header .close {
-    margin-top: -10px; /* Ajusta la posición del botón de cerrar */
-}
-
-.modal-title {
-    font-size: 24px; /* Tamaño más grande para el título */
-    color: #3b4cca; /* Color azul Pokémon */
-}
-
-/* Botones en el footer del modal */
-.modal-footer .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.modal-footer .btn-primary {
-    background-color: #3b4cca; /* Azul Pokémon */
-    border: none;
-}
-
-.modal-footer .btn-secondary {
-    background-color: #ffcb05; /* Amarillo Pokémon */
-    color: #000;
-    border: none;
-}
-
-.modal-footer .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
-/* Estilo para el título */
-.deposit-page-container h2 {
-    color: #000000; /* Color amarillo de Pokémon */
+/* Contenedor principal del modal */
+.deposito-page-container {
+    padding: 20px;
+    background-color: #ffffff; /* Fondo claro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Título principal dentro del modal */
+.deposito-page-container h2 {
+    text-align: center;
+    color: #007bff; /* Color azul principal */
+    margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
+}
+
+/* Estilo del input */
+.input-group {
     margin-bottom: 20px;
 }
 
-.historial-titulo {
-    display: inline-block;
-}
-
-.btn-reporte {
-    width: 9rem;
-    padding: 10px;
-}
-
-/* Input group (para el campo de monto) */
-.input-group-text {
-    background-color: #3b4cca; /* Azul Pokémon */
-    color: #fff;
-    border: none;
+.input-group .input-group-prepend .input-group-text {
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto en blanco */
+    font-weight: bold;
 }
 
 .form-control {
     font-size: 18px;
     padding: 10px;
-    border: 2px solid #3b4cca; /* Azul Pokémon */
 }
 
-/* Contenedor de botones */
-.button-container {
+/* Botones para las acciones */
+.deposito-button-container {
     display: flex;
-    justify-content: space-between; /* Alinea los botones a los extremos */
-    width: 100%; /* Ocupa el ancho completo */
-    margin-top: 20px;
+    justify-content: space-between;
+    gap: 15px;
 }
 
-/* Botones */
-.button-container .btn {
-    width: 45%; /* Anchura de cada botón */
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.deposito-button-container .btn {
+    width: 48%; /* Cada botón ocupa casi la mitad del ancho */
 }
 
-.button-container .btn-primary {
-    background-color: #3b4cca; /* Azul Pokémon */
-    border: none;
+/* Estilo del botón "Retirar" */
+.btn-primary {
+    background-color: #007bff; /* Azul Bootstrap */
+    border: 1px solid #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700; /* Más grueso para destacar */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button-container .btn-secondary {
-    background-color: #ffcb05; /* Amarillo Pokémon */
-    color: #000;
-    border: none;
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+    transform: translateY(-2px); /* Efecto de elevación */
 }
 
-/* Efecto hover en los botones */
-.button-container .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.btn-primary:active {
+    background-color: #004085; /* Azul más oscuro al presionar */
+    transform: translateY(0); /* Sin elevación */
 }
 
-/* Modal voucher (sin cambios específicos, opcionalmente añadir estilo Pokémon) */
-#voucherModal .modal-title {
-    color: #3b4cca; /* Azul Pokémon */
+/* Estilo del botón "Volver" */
+.btn-secondary {
+    background-color: #ffcb05; /* Gris oscuro */
+    border: 1px solid #ffcb05;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#voucherModal .btn-primary {
-    background-color: #3b4cca;
+.btn-secondary:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+    transform: translateY(-2px); /* Elevación */
 }
 
-#voucherModal .btn-secondary {
-    background-color: #ffcb05;
-    color: #000;
+.btn-secondary:active {
+    background-color: #545b62; /* Gris más oscuro al presionar */
+    transform: translateY(0);
+}
+
+/* Estilo del contenido del modal */
+.modal-body {
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    background-color: transparent; /* Fondo transparente para evitar blanco adicional */
+}
+
+/* Estilo del pie del modal */
+.modal-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-footer .btn {
+    width: 45%;
+}
+
+/* Estilo del contenido de voucher generado */
+#voucher-section pre {
+    padding: 15px;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    font-family: monospace;
+    white-space: pre-wrap; /* Para que el texto no desborde */
 }
 
 /*----------------------------------------------------------------------------------------retirar----------------------------------*/
 
-/* Estilo del modal de generar voucher */
-#voucherModal .modal-title {
-    color: #3b4cca; /* Azul Pokémon */
+/* Modal específico para retiro */
+.modal-dialog-retirar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 20px); /* Centra el modal verticalmente en la página */
+    max-width: 600px; /* Ajusta el ancho máximo del modal */
+    max-height: 90vh; /* Ajusta la altura máxima al 90% de la ventana del navegador */
 }
 
-#voucherModal .btn-primary {
-    background-color: #3b4cca; /* Azul Pokémon */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#voucherModal .btn-secondary {
-    background-color: #ffcb05; /* Amarillo Pokémon */
-    color: #000;
+/* Título principal dentro del modal */
+.deposito-page-container h2 {
+    text-align: center;
+    color: #007bff; /* Color azul principal */
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-/* Estilo del modal de navegación */
-#navigationModal .modal-title {
-    color: #3b4cca; /* Azul Pokémon */
+/* Estilo del input para el monto del retiro */
+.input-group {
+    margin-bottom: 20px;
 }
 
-#navigationModal .btn-primary {
-    background-color: #3b4cca; /* Azul Pokémon */
+.input-group .input-group-prepend .input-group-text {
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto en blanco */
+    font-weight: bold;
 }
 
-#navigationModal .btn-secondary {
-    background-color: #ffcb05; /* Amarillo Pokémon */
-    color: #000;
-}
-
-/* Aplicar el estilo de los botones en el contenido del modal */
-.button-container .btn {
-    width: 45%; /* Anchura de cada botón */
-    padding: 10px;
+.form-control {
     font-size: 18px;
-    border-radius: 8px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 10px;
 }
 
-.button-container .btn-primary {
-    background-color: #3b4cca; /* Azul Pokémon */
-    border: none;
+/* Botones para las acciones */
+.deposito-button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
 }
 
-.button-container .btn-secondary {
-    background-color: #ffcb05; /* Amarillo Pokémon */
-    color: #000;
-    border: none;
+.deposito-button-container .btn {
+    width: 48%; /* Cada botón ocupa casi la mitad del ancho */
 }
 
-.button-container .btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Estilo del botón "Retirar" */
+.btn-primary {
+    background-color: #007bff; /* Azul Bootstrap */
+    border: 1px solid #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700; /* Más grueso para destacar */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+.btn-primary:active {
+    background-color: #004085; /* Azul más oscuro al presionar */
+    transform: translateY(0); /* Sin elevación */
+}
+
+/* Estilo del botón "Volver" */
+.btn-secondary {
+    background-color: #ffcb05; /* Gris oscuro */
+    border: 1px solid #ffcb05;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+    transform: translateY(-2px); /* Elevación */
+}
+
+.btn-secondary:active {
+    background-color: #545b62; /* Gris más oscuro al presionar */
+    transform: translateY(0);
+}
+
+/* Estilo del contenido del modal para voucher */
+.modal-body {
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-footer .btn {
+    width: 45%;
+}
+
+/* Estilo del contenido de voucher generado */
+#voucher-section pre {
+    padding: 15px;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    font-family: monospace;
+    white-space: pre-wrap; /* Para que el texto no desborde */
+}
+
+/*------------------------------------------------------------CONSULTAR-----------------------------------------*/
+
+/* Estilo del modal específico para consultar saldo */
+.modal-dialog-consultar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 20px); /* Centra el modal verticalmente en la página */
+    max-width: 600px; /* Ajusta el ancho máximo del modal */
+    max-height: 90vh; /* Ajusta la altura máxima al 90% de la ventana del navegador */
+}
+
+/*--------------------------------------PAGO DE SERVICIOS------------------------------------------------------------------*/
+
+/* Modal para Pagar Servicios */
+.modal-dialog-pagar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 20px); /* Centra el modal verticalmente en la página */
+    max-width: 600px; /* Ajusta el ancho máximo del modal */
+    max-height: 90vh; /* Ajusta la altura máxima al 90% de la ventana del navegador */
+}
+
+/* Contenedor principal del modal para pagar servicios */
+.pagar-servicios-container {
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para el contenedor del modal */
+    border-radius: 10px; /* Bordes redondeados para el contenedor del modal */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    margin: -20px; /* Elimina el margen para ajustarse al contenedor del modal */
+}
+
+.modal-content {
+    border: none; /* Elimina el borde predeterminado del modal */
+    border-radius: 10px; /* Asegura que el borde redondeado sea consistente */
+}
+
+/* Título principal dentro del modal */
+.pagar-servicios-container h2 {
+    text-align: center;
+    color: #000000; /* Azul Pokémon para el texto */
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+
+/* Estilo del formulario dentro del modal */
+.form-control {
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px; /* Bordes redondeados para inputs */
+    border: 1px solid #000000; /* Borde amarillo brillante */
+    text-align: center;
+}
+
+/* Estilo del select dentro del formulario */
+.form-control option {
+    color: #3CBAE8; /* Color del texto para las opciones */
+}
+
+/* Botones para las acciones */
+.pagar-boton-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Estilo del botón "Pagar" */
+.btn-primary-pagar {
+    background-color: #007bff; /* Azul para el botón */
+    border: 1px solid #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary-pagar:hover {
+    background-color: #0056b3; /* Azul más oscuro en hover */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+.btn-primary-pagar:active {
+    background-color: #004085; /* Azul más oscuro al presionar */
+    transform: translateY(0); /* Sin elevación */
+}
+
+/* Estilo del botón "Volver" */
+.btn-secondary-pagar {
+    background-color: #ffcb05; /* Amarillo para el botón */
+    border: 1px solid #ffcb05;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-secondary-pagar:hover {
+    background-color: #e0a800; /* Amarillo más oscuro en hover */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+
+/* Estilo del resultado del pago */
+#pay-result {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    color: #3CBAE8; /* Azul Pokémon para el texto */
+}
+
+/*----------------------------------------------------------------Historial-----------------------------------------------*/
+
+.modal-dialog {
+    max-height: 90vh; /* Limita la altura del modal al 90% del viewport */
+    margin: auto; /* Centra el modal vertical y horizontalmente */
+    width: 100%; /* Asegura que el modal ocupe toda la pantalla disponible en horizontal */
+}
+
+.modal-content {
+    max-height: 90vh; /* Limita la altura del contenido al 90% del viewport */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita el desbordamiento del contenido fuera del modal */
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px;
+    z-index: 10; /* Asegura que el header esté encima del contenido */
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto; /* Habilitar desplazamiento solo en el cuerpo del modal */
+    padding: 20px;
+    max-height: 60vh; /* Limita el área de desplazamiento para no exceder el tamaño de la pantalla */
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    padding: 15px;
+    position: sticky;
+    bottom: 0;
+    z-index: 10; /* Asegura que el footer esté encima del contenido desplazable */
+}
+
+.modal-header {
+    text-align: center; /* Centrar el contenido dentro del header */
+}
+
+.modal-title {
+    flex: 1; /* Hace que el título ocupe todo el ancho del header */
+    text-align: center; /* Centra el texto del título */
+}
+
+#transaction-table th, #transaction-table td {
+    padding: 10px; /* Ajusta el espacio interior de las celdas */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+#transaction-table th.voucher-column, #transaction-table td.voucher-column {
+    width: 150px; /* Mantén la columna del voucher limitada */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Elipsis para texto largo */
+}
+
+/*----------------------------------------------------Grafica--------------------------------------------------*/
+
+/* Asegura que el modal cubra toda la pantalla */
+.modal-fullscreen .modal-dialog {
+    max-width: 100%;
+    width: 100vw; /* Ancho completo de la ventana */
+    height: 100vh; /* Alto completo de la ventana */
+    margin: 0;
+}
+
+.modal-fullscreen .modal-content {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-fullscreen .modal-body {
+    flex: 1;
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0; /* Elimina padding inferior para ajustar la altura del contenedor */
+}
+
+.chart-container {
+    width: 100%;
+    height: calc(100% - 60px); /* Ajusta la altura para que la gráfica ocupe más espacio */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Añade un poco de padding si es necesario */
+}
+
+.chart-container h1 {
+    color: #000000; /* Ajusta el color del texto según sea necesario */
+    margin-bottom: 20px;
+}
+
+.chart-container canvas {
+    width: 95%; /* Ajusta el ancho del canvas según sea necesario */
+    height: 70vh; /* Ajusta la altura del canvas según sea necesario */
+    max-width: 100%;
+    max-height: 80%; /* Asegura que la gráfica use el alto máximo disponible */
+}
+
+.modal-footer {
+    margin-top: auto;
+    background: transparent; /* Ajusta según sea necesario */
+    border: 0;
+    padding: 20px; /* Ajusta el espaciado según sea necesario */
+    text-align: center;
+    position: relative;
+    bottom: 0; /* Asegura que el pie de página esté en la parte inferior */
 }

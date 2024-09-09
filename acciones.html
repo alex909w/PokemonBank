@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Bank - Acciones</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -25,353 +26,347 @@
                 <h2 id="user-name">Ash Ketchum</h2>
                 <p id="user-account">Cuenta: 0987654321</p>
             </div>
-
+            <!-- Botones de acción -->
             <div class="row justify-content-center mt-4">
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-success btn-lg btn-action" data-toggle="modal" data-target="#depositarModal">
+                    <button class="btn btn-deposito btn-lg btn-action" data-toggle="modal"
+                        data-target="#depositarModal">
                         <img src="img/acciones/depositar.png" alt="Depositar" class="btn-icon"> DEPOSITAR
                     </button>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-danger btn-lg btn-action" data-toggle="modal" data-target="#retirarModal">
+                    <button class="btn btn-retiro btn-lg btn-action" data-toggle="modal"
+                        data-target="#modalRetirarDinero">
                         <img src="img/acciones/retirar.png" alt="Retirar" class="btn-icon"> RETIRAR
                     </button>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-info btn-lg btn-action" data-toggle="modal"
-                        data-target="#consultarSaldoModal">
+                    <button class="btn btn-consultar btn-lg btn-action" data-toggle="modal"
+                        data-target="#modalConsultarSaldo">
                         <img src="img/acciones/consultar.png" alt="Consultar Saldo" class="btn-icon"> CONSULTAR SALDO
                     </button>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal"
-                        data-target="#pagarServiciosModal">
+                    <button class="btn btn-pagar-servicios btn-lg btn-action" data-toggle="modal"
+                        data-target="#modalPagarServicios">
                         <img src="img/acciones/pagos.png" alt="Pagar Servicios" class="btn-icon"> PAGAR SERVICIOS
                     </button>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal" data-target="#historialModal">
+                    <button class="btn btn-historial btn-lg btn-action" data-toggle="modal"
+                        data-target="#modalTransacciones">
                         <img src="img/acciones/pagos.png" alt="Historial" class="btn-icon"> HISTORIAL DE TRANSACCIONES
                     </button>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-3">
-                    <button class="btn btn-primary btn-lg btn-action" data-toggle="modal" data-target="#graficosModal">
+                    <button class="btn btn-graficos btn-lg btn-action" data-toggle="modal" data-target="#graficosModal">
                         <img src="img/acciones/pagos.png" alt="Grafica" class="btn-icon"> GRÁFICOS DE TRANSACCIONES
                     </button>
                 </div>
             </div>
-            <button class="btn btn-danger btn-lg btn-logout" data-toggle="modal"
-                data-target="#salirModal">SALIR</button>
+            <button id="btn-logout" class="btn btn-logout btn-lg" data-toggle="modal" data-target="#salirModal">SALIR</button>
+
+
+            <!-- Modal de Depositar -->
+<div class="modal fade" id="depositarModal" tabindex="-1" role="dialog"
+aria-labelledby="depositarModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="deposito-page-container">
+            <h2>Depositar Dinero</h2>
+            <form id="deposito-form">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" id="deposito-amount" class="form-control" placeholder="0.00"
+                        min="0" required>
+                </div>
+                <!-- Contenedor para los botones -->
+                <div class="deposito-button-container">
+                    <button type="submit" class="btn btn-primary">Depositar</button>
+                    <a href="acciones.html" class="btn btn-secondary">Volver</a>
+                </div>
+            </form>
+            <p id="deposito-result"></p>
         </div>
-    </div>
 
-    <!-- Modales para acciones -->
-    <div class="modal fade" id="depositarModal" tabindex="-1" role="dialog" aria-labelledby="depositarModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="deposit-page-container">
-                    <h2>Depositar Dinero</h2>
-                    <form id="deposit-form">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            <input type="number" id="deposit-amount" class="form-control" placeholder="0.00" min="0"
-                                required>
-                        </div>
-                        <!-- Contenedor para los botones -->
-                        <div class="button-container">
-                            <button type="submit" class="btn btn-primary">Depositar</button>
-                            <a href="acciones.html" class="btn btn-secondary">Volver</a>
-                        </div>
-                    </form>
-                    <p id="deposit-result"></p>
-                </div>
-                <!-- Modal para generar el voucher -->
-                <div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="voucherModalLabel">Generar Voucher</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ¿Deseas generar un voucher del depósito?
-                            </div>
-                            <div class="modal-footer">
-                                <button id="noVoucher" type="button" class="btn btn-secondary">No</button>
-                                <button id="generateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
-                            </div>
-                        </div>
+        <!-- Modal para generar el voucher -->
+        <div class="modal fade" id="depositoVoucherModal" tabindex="-1" role="dialog"
+            aria-labelledby="depositoVoucherModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="depositoVoucherModalLabel">Generar Voucher</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-
-                <div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="optionModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="optionModalLabel">¿Qué deseas hacer ahora?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Selecciona una opción para continuar.
-                            </div>
-                            <div class="modal-footer">
-                                <button id="retryDeposit" type="button" class="btn btn-secondary">Volver a Depositar</button>
-                                <button id="goToMenu" type="button" class="btn btn-primary">Volver al Menú Principal</button>
-                            </div>
-                        </div>
+                    <div class="modal-body">
+                        ¿Deseas generar un voucher del depósito?
                     </div>
-                </div>
-                
-
-                <!-- Modal para opciones después de depositar -->
-                <div class="modal fade" id="optionModal" tabindex="-1" role="dialog" aria-labelledby="optionModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="optionModalLabel">¿Qué deseas hacer ahora?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Selecciona una opción para continuar.
-                            </div>
-                            <div class="modal-footer">
-                                <button id="retryDeposit" type="button" class="btn btn-secondary">Volver a
-                                    Depositar</button>
-                                <button id="goToMenu" type="button" class="btn btn-primary">Volver al Menú
-                                    Principal</button>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button id="depositoNoVoucher" type="button" class="btn btn-secondary">No</button>
+                        <button id="depositoGenerateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
                     </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="modal fade" id="retirarModal" tabindex="-1" role="dialog" aria-labelledby="retirarModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <!-- Contenido del modal de retirar -->
-                    <h2>Retirar Dinero</h2>
-                    <form id="withdraw-form">
-                        <div class="input-group">
-                            <input type="number" id="withdraw-amount" class="form-control" placeholder="Monto a retirar" min="0" required>
-                        </div>
-                        <div class="button-container">
-                            <button type="submit" class="btn btn-primary">Retirar</button>
-                            <a href="../acciones.html" class="btn btn-secondary">Volver</a>
-                        </div>
-                    </form>
-                    <p id="withdraw-result"></p>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Menú para generar un voucher -->
-<div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="voucherModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="voucherModalLabel">Generar Voucher</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h2>Generar Voucher</h2>
-                <form id="voucher-form">
-                    <div class="input-group">
-                        <input type="text" id="voucher-code" class="form-control" placeholder="Código del voucher" required>
-                    </div>
-                    <div class="button-container">
-                        <button type="submit" class="btn btn-primary">Generar</button>
-                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
-                    </div>
-                </form>
-                <p id="voucher-result"></p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Menú para volver a retirar dinero o volver al menú principal -->
-<div class="modal fade" id="navigationModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="navigationModalLabel">Opciones de Navegación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h2>Opciones de Navegación</h2>
-                <div class="button-container">
-                    <a href="#retirarModal" class="btn btn-primary" data-toggle="modal" data-dismiss="modal">Volver a Retirar</a>
-                    <a href="../menu-principal.html" class="btn btn-secondary">Volver al Menú Principal</a>
+        <!-- Modal para opciones después del depósito -->
+        <div class="modal fade" id="depositoOptionModal" tabindex="-1" role="dialog"
+            aria-labelledby="depositoOptionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="depositoOptionModalLabel">¿Qué deseas hacer ahora?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Selecciona una opción para continuar.
+                    </div>
+                    <div class="modal-footer">
+                        <button id="depositoRetryDeposit" type="button" class="btn btn-secondary">Volver a Depositar</button>
+                        <button id="depositoGoToMenu" type="button" class="btn btn-primary">Volver al Menú Principal</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 
-    <div class="modal fade" id="consultarSaldoModal" tabindex="-1" role="dialog"
-        aria-labelledby="consultarSaldoModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="consultarSaldoModalLabel">Consultar Saldo</h5>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de consultar saldo -->
-                    <div class="container">
-                        <h2>Consultar Saldo</h2>
-                        <p id="balance">Saldo disponible: $0</p>
-                        <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+            <!-- Modal para Retirar Dinero -->
+            <div class="modal fade" id="modalRetirarDinero" tabindex="-1" role="dialog"
+                aria-labelledby="modalRetirarDineroLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-retirar" role="document">
+                    <div class="modal-content deposito-page-container">
+                        <div class="modal-body">
+                            <h2>Retirar Dinero</h2>
+                            <form id="formRetiroDinero">
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="number" id="inputMontoRetiro" class="form-control" placeholder="0.00"
+                                        min="0" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Retirar</button>
+                                <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                            </form>
+                            <p id="resultadoRetiro"></p>
+                            <div id="voucher-section"></div>
+                        </div>
                     </div>
-
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="pagarServiciosModal" tabindex="-1" role="dialog"
-        aria-labelledby="pagarServiciosModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pagarServiciosModalLabel">Pagar Servicios</h5>
+            <!-- Modal para generar un voucher -->
+            <div class="modal fade" id="modalGenerarVoucher" tabindex="-1" role="dialog"
+                aria-labelledby="modalGenerarVoucherLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content deposito-page-container">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalGenerarVoucherLabel">Generar Voucher</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>Generar Voucher</h2>
+                            <form id="formGenerarVoucher">
+                                <div class="input-group">
+                                    <input type="text" id="inputCodigoVoucher" class="form-control"
+                                        placeholder="Código del voucher" required>
+                                </div>
+                                <div class="deposito-button-container">
+                                    <button type="button" id="btnGenerarVoucher"
+                                        class="btn btn-primary">Generar</button>
+                                    <button type="button" id="btnNoGenerarVoucher" class="btn btn-secondary">No
+                                        Generar</button>
+                                </div>
+                            </form>
+                            <p id="resultadoGenerarVoucher"></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de pagar servicios -->
-                    <div class="container">
-                        <h2>Pagar Servicios</h2>
-                        <form id="pay-form">
-                            <div class="form-group">
-                                <label for="service-type">Selecciona un servicio</label>
-                                <select id="service-type" class="form-control" required>
-                                    <option value="" disabled selected>Selecciona un servicio</option>
-                                    <option value="Energía Eléctrica">Energía Eléctrica</option>
-                                    <option value="Internet">Internet</option>
-                                    <option value="Telefonía">Telefonía</option>
-                                    <option value="Agua Potable">Agua Potable</option>
-                                </select>
+            </div>
+
+            <!-- Modal para opciones de navegación -->
+            <div class="modal fade" id="modalOpcionesNavegacion" tabindex="-1" role="dialog"
+                aria-labelledby="modalOpcionesNavegacionLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content deposito-page-container">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalOpcionesNavegacionLabel">Opciones de Navegación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h2>Opciones de Navegación</h2>
+                            <div class="deposito-button-container">
+                                <button type="button" id="btnVolverRetirar" class="btn btn-primary">Volver a
+                                    Retirar</button>
+                                <a href="acciones.html" id="btnVolverMenu" class="btn btn-secondary">Volver al Menú
+                                    Principal</a>
                             </div>
-                            <div class="form-group">
-                                <label for="pay-amount">Monto a pagar</label>
-                                <input type="number" id="pay-amount" class="form-control" placeholder="Monto a pagar"
-                                    min="0" step="0.01" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Pagar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para Consultar Saldo -->
+            <div class="modal fade" id="modalConsultarSaldo" tabindex="-1" role="dialog"
+                aria-labelledby="modalConsultarSaldoLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-consultar" role="document">
+                    <div class="modal-content deposito-page-container">
+                        <div class="modal-body">
+                            <h2>Consultar Saldo</h2>
+                            <p id="balance"></p>
                             <a href="../acciones.html" class="btn btn-secondary">Volver</a>
-                        </form>
-                        <p id="pay-result"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modales para navegación -->
-    <div class="modal fade" id="historialModal" tabindex="-1" role="dialog" aria-labelledby="historialModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title historial-titulo" id="historialModalLabel">Historial de Transacciones</h5>
-                    <button id="historial_reporte" class="btn btn-secondary btn-reporte">Generar reporte</button>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de historial -->
-                    <div class="container">
-                        <h1>Historial de Transacciones</h1>
-
-                        <ul id="transaction-history">
-                            <!-- Transacciones se agregarán aquí -->
-                        </ul>
-
-                        <a href="acciones.html" class="btn btn-secondary">Volver</a>
+            <!-- Modal para Pagar Servicios -->
+            <div class="modal fade" id="modalPagarServicios" tabindex="-1" role="dialog"
+                aria-labelledby="modalPagarServiciosLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-pagar" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="pagar-servicios-container">
+                                <h2>Pagar Servicios</h2>
+                                <form id="formPagarServicios">
+                                    <div class="form-group">
+                                        <label for="selectServicio">Selecciona un servicio</label>
+                                        <select id="selectServicio" class="form-control" required>
+                                            <option value="" disabled selected>Selecciona un servicio</option>
+                                            <option value="Energía Eléctrica">Energía Eléctrica</option>
+                                            <option value="Internet">Internet</option>
+                                            <option value="Telefonía">Telefonía</option>
+                                            <option value="Agua Potable">Agua Potable</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input type="number" id="inputMontoPago" class="form-control" placeholder="0.00"
+                                            min="0" step="0.01" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary-pagar">Pagar</button>
+                                    <a href="acciones.html" class="btn btn-secondary-pagar">Volver</a>
+                                </form>
+                                <p id="resultadoPago"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="graficosModal" tabindex="-1" role="dialog" aria-labelledby="graficosModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="graficosModalLabel">Gráficos de Transacciones</h5>
+            <!-- Modales para Historial -->
+            <div class="modal fade" id="modalTransacciones" tabindex="-1" role="dialog"
+                aria-labelledby="modalTransaccionesLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTransaccionesLabel">Historial de Transacciones</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="transaction-history"></div> <!-- Aquí estará la tabla de transacciones -->
+                        </div>
+                        <div class="modal-footer">
+                            <button id="historial_reporte" class="btn btn-primary">Generar reporte</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
+            </div>
+
+            <!-- Modales para Gráficas -->
+        
+    <!-- Contenedor para la tabla de transacciones -->
+    <div id="transaction-history" class="container mt-4"></div>
+
+    <!-- Modal para Gráficas -->
+    <div class="modal fade modal-fullscreen" id="graficosModal" tabindex="-1" role="dialog"
+        aria-labelledby="graficosModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-fullscreen" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex flex-column align-items-center justify-content-center">
                     <!-- Contenido del modal de gráficos -->
-                    <div class="container">
+                    <div class="chart-container">
                         <h1>Gráfico de Transacciones</h1>
                         <canvas id="transactionsChart"></canvas>
-                        <a href="acciones.html" class="btn btn-secondary">Volver</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="salirModal" tabindex="-1" role="dialog" aria-labelledby="salirModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="salirModalLabel">Salir</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Contenido del modal de salir -->
-                    ¿Estás seguro de que quieres salir?
-                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a href="index.html" class="btn btn-danger">Salir</a>
+                    <a href="acciones.html" class="btn btn-secondary">Volver</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Libreria jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.js"></script>
+    <!-- Modal para Confirmar Salida -->
+<div class="modal fade" id="salirModal" tabindex="-1" role="dialog" aria-labelledby="salirModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="salirModalLabel">Confirmar Salida</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres salir?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btn-confirm-logout" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-    <script src="js/acciones.js"></script>
-    <script src="js/balance.js"></script>
-    <script src="js/pagodeservicios.js"></script>
-    <script src="js/historial.js"></script>
-    <script src="js/graficas.js"></script>
-    <script src="js/jspdf.js"></script>
-    <script src="js/retirar.js"></script>
-    <script src="js/depositar.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+<!-- chartjs-plugin-datalabels -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<!-- jQuery (versión más reciente) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js (versión compatible con Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<!-- Bootstrap (versión más reciente) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+            <!-- Libreria jsPDF -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+                integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.js"></script>
+
+
+            <script src="js/acciones.js"></script>
+            <script src="js/balance.js"></script>
+            <script src="js/pagodeservicios.js"></script>
+            <script src="js/historial.js"></script>
+            <script src="js/graficas.js"></script>
+            <script src="js/jspdf.js"></script>
+            <script src="js/retirar.js"></script>
+            <script src="js/depositar.js"></script>
 
 </body>
 
