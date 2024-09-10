@@ -65,77 +65,71 @@
                 </div>
             </div>
             <button id="btn-logout" class="btn btn-logout btn-lg" data-toggle="modal" data-target="#salirModal">SALIR</button>
-
-
-            <!-- Modal de Depositar -->
-<div class="modal fade" id="depositarModal" tabindex="-1" role="dialog"
-aria-labelledby="depositarModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="deposito-page-container">
-            <h2>Depositar Dinero</h2>
-            <form id="deposito-form">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">$</span>
+<!-- Modal de Depositar -->
+<div class="modal fade" id="depositarModal" tabindex="-1" role="dialog" aria-labelledby="depositarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="deposito-page-container">
+                <h2>Depositar Dinero</h2>
+                <form id="deposito-form">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="number" id="deposito-amount" class="form-control" placeholder="0.00" min="0" required>
                     </div>
-                    <input type="number" id="deposito-amount" class="form-control" placeholder="0.00"
-                        min="0" required>
-                </div>
-                <!-- Contenedor para los botones -->
-                <div class="deposito-button-container">
-                    <button type="submit" class="btn btn-primary">Depositar</button>
-                    <a href="acciones.html" class="btn btn-secondary">Volver</a>
-                </div>
-            </form>
-            <p id="deposito-result"></p>
-        </div>
-
-        <!-- Modal para generar el voucher -->
-        <div class="modal fade" id="depositoVoucherModal" tabindex="-1" role="dialog"
-            aria-labelledby="depositoVoucherModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="depositoVoucherModalLabel">Generar Voucher</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <!-- Contenedor para los botones -->
+                    <div class="deposito-button-container">
+                        <button type="submit" class="btn btn-primary">Depositar</button>
+                        <a href="acciones.html" class="btn btn-secondary">Volver</a>
                     </div>
-                    <div class="modal-body">
-                        ¿Deseas generar un voucher del depósito?
-                    </div>
-                    <div class="modal-footer">
-                        <button id="depositoNoVoucher" type="button" class="btn btn-secondary">No</button>
-                        <button id="depositoGenerateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal para opciones después del depósito -->
-        <div class="modal fade" id="depositoOptionModal" tabindex="-1" role="dialog"
-            aria-labelledby="depositoOptionModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="depositoOptionModalLabel">¿Qué deseas hacer ahora?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Selecciona una opción para continuar.
-                    </div>
-                    <div class="modal-footer">
-                        <button id="depositoRetryDeposit" type="button" class="btn btn-secondary">Volver a Depositar</button>
-                        <button id="depositoGoToMenu" type="button" class="btn btn-primary">Volver al Menú Principal</button>
-                    </div>
-                </div>
+                </form>
+                <p id="deposito-result"></p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal para generar el voucher -->
+<div class="modal fade" id="depositoVoucherModal" tabindex="-1" role="dialog" aria-labelledby="depositoVoucherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="depositoVoucherModalLabel">Generar Voucher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Deseas generar un voucher del depósito?
+            </div>
+            <div class="modal-footer">
+                <button id="depositoNoVoucher" type="button" class="btn btn-secondary">No</button>
+                <button id="depositoGenerateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para opciones después del depósito -->
+<div class="modal fade" id="depositoOptionModal" tabindex="-1" role="dialog" aria-labelledby="depositoOptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="depositoOptionModalLabel">¿Qué deseas hacer ahora?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Selecciona una opción para continuar.
+            </div>
+            <div class="modal-footer">
+                <button id="depositoRetryDeposit" type="button" class="btn btn-secondary">Volver a Depositar</button>
+                <button id="depositoGoToMenu" type="button" class="btn btn-primary">Volver al Menú Principal</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
