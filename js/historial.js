@@ -65,5 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(table);
     }
 
+    // Llamar a la función cuando la ventana se haya cargado
     window.onload = loadTransactionHistory;
 });

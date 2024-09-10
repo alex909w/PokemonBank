@@ -1,74 +1,66 @@
-// Esperar a que el documento esté completamente cargado
 $(document).ready(function() {
-    // Funcionalidad del formulario de retiro
+    // Variables para almacenar los datos necesarios
+    let pendingWithdrawalData = null;
+
+    // Funcionalidad del formulario de retiro de dinero
     document.getElementById('formRetiroDinero').addEventListener('submit', function(event) {
         event.preventDefault();
         const amount = parseFloat(document.getElementById('inputMontoRetiro').value);
         const result = document.getElementById('resultadoRetiro');
-        const voucherSection = document.getElementById('voucher-section');
-        let id_retiro = '';
+        const voucherSection = document.getElementById('voucher-section-retirar');
 
         if (amount > 0) {
-            let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+            // Generar un ID único para el retiro
+            const id_retiro = generateUniqueId('RE', 5);
 
-            if (amount <= currentBalance) {
-                currentBalance -= amount;
-                localStorage.setItem('balance', currentBalance);
+            // Almacenar los datos del retiro en una variable para usarlos después
+            pendingWithdrawalData = { id_retiro, amount };
 
-                result.textContent = `Has retirado $${amount}. Nuevo saldo: $${currentBalance}`;
-
-                // Generar un ID único para retiro y almacenarlo en localStorage
-                id_retiro = generateUniqueId('RE', 5);
-                localStorage.setItem('last_retiro_id', id_retiro);
-
-                // Registrar la transacción
-                recordTransaction(id_retiro, `Retiro: $${amount}`);
-
-                // Generar el voucher PDF
-                const voucher = generateVoucherPDF(id_retiro, amount, currentBalance);
-                // Mostrar el voucher en el modal
-                voucherSection.innerHTML = `<pre>${voucher}</pre>`;
-
-                // Mostrar el modal de voucher
-                $('#modalGenerarVoucher').modal('show');
-
-            } else {
-                result.textContent = 'Saldo insuficiente para realizar el retiro.';
-                voucherSection.innerHTML = ''; // Limpiar voucher si el retiro falla
-            }
+            // Mostrar el modal de confirmar generación de voucher
+            $('#modalGenerarVoucherRetiro').modal('show');
+            
         } else {
             result.textContent = 'Por favor, ingresa un monto válido.';
             voucherSection.innerHTML = ''; // Limpiar voucher si el monto es inválido
         }
     });
 
-    // Funcionalidad del botón para generar el voucher
-    document.getElementById('btnGenerarVoucher').addEventListener('click', function() {
-        const amount = parseFloat(document.getElementById('inputMontoRetiro').value);
-        const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
-        const id_retiro = localStorage.getItem('last_retiro_id');
+    // Funcionalidad del botón "Generar" del modal de confirmar generación de voucher
+    document.getElementById('btnGenerarVoucherRetiro').addEventListener('click', function() {
+        if (pendingWithdrawalData) {
+            const { id_retiro, amount } = pendingWithdrawalData;
+            const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
 
-        // Generar el voucher PDF y devolver la cadena de datos URI
-        const voucherDataUri = generateVoucherPDF(id_retiro, amount, currentBalance);
+            // Registrar la transacción
+            recordTransaction(id_retiro, `Retiro de Dinero: $${amount}`);
 
-        // Guardar la cadena de datos URI del voucher en el localStorage
-        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        const transactionIndex = transactions.findIndex(t => t.id_retiro === id_retiro);
-        if (transactionIndex !== -1) {
-            transactions[transactionIndex].voucher = voucherDataUri;
-            localStorage.setItem('transactions', JSON.stringify(transactions));
+            // Generar el voucher PDF
+            const voucherDataUri = generateVoucherPDF(id_retiro, amount, currentBalance);
+
+            // Descargar el voucher PDF
+            const link = document.createElement('a');
+            link.href = voucherDataUri;
+            link.download = 'retiro_dinero.pdf';
+            link.click();
+
+            // Limpiar los datos pendientes
+            pendingWithdrawalData = null;
+
+            // Mostrar el modal de opciones
+            $('#modalOpcionesNavegacionRetiro').modal('show');
         }
 
-        // Cerrar el modal de voucher y mostrar el de opciones
-        $('#modalGenerarVoucher').modal('hide');
-        $('#modalOpcionesNavegacion').modal('show');
+        // Cerrar el modal de confirmar generación de voucher
+        $('#modalGenerarVoucherRetiro').modal('hide');
     });
 
-    // Funcionalidad del botón para no generar voucher
-    document.getElementById('btnNoGenerarVoucher').addEventListener('click', function() {
-        // Cerrar el modal de voucher y mostrar el de opciones
-        $('#modalGenerarVoucher').modal('hide');
-        $('#modalOpcionesNavegacion').modal('show');
+    // Funcionalidad del botón "No Generar" del modal de confirmar generación de voucher
+    document.getElementById('btnNoGenerarVoucherRetiro').addEventListener('click', function() {
+        // Limpiar los datos pendientes
+        pendingWithdrawalData = null;
+
+        // Cerrar el modal de confirmar generación de voucher
+        $('#modalGenerarVoucherRetiro').modal('hide');
     });
 
     // Funcionalidad del botón para volver a retirar dinero
@@ -76,14 +68,14 @@ $(document).ready(function() {
         // Limpiar el campo de entrada y el resultado
         document.getElementById('inputMontoRetiro').value = '';
         document.getElementById('resultadoRetiro').textContent = '';
-        // Mostrar el modal de retiro
+        // Mostrar el modal de retiro de dinero
         $('#modalRetirarDinero').modal('show');
         // Cerrar el modal de opciones
-        $('#modalOpcionesNavegacion').modal('hide');
+        $('#modalOpcionesNavegacionRetiro').modal('hide');
     });
 
     // Funcionalidad del botón para volver al menú principal
-    document.getElementById('btnVolverMenu').addEventListener('click', function() {
+    document.getElementById('btnVolverMenuRetiro').addEventListener('click', function() {
         window.location.href = 'acciones.html'; // Volver al menú de acciones
     });
 
@@ -102,18 +94,18 @@ $(document).ready(function() {
         const doc = new jsPDF();
 
         const date = new Date().toLocaleString();
-        const accountNumber = '0987654321'; // Reemplaza con el número de cuenta real
-        const userName = 'Ash Ketchum'; // Reemplaza con el nombre del usuario
+        const accountNumber = 'XXX-XXXX-XXXX-4321'; // Número de cuenta con los primeros dígitos ocultos
+        const userName = 'Ash Ketchum'; // Nombre del usuario
 
         doc.setFontSize(16);
-        doc.text('Voucher de Retiro', 20, 20);
+        doc.text('Voucher de Retiro de Dinero', 20, 20);
         doc.setFontSize(12);
         doc.text(`Fecha y Hora: ${date}`, 20, 30);
         doc.text(`Nombre: ${userName}`, 20, 40);
         doc.text(`Número de Cuenta: ${accountNumber}`, 20, 50);
         doc.text(`ID de Transacción: ${id_retiro}`, 20, 60);
         doc.text(`Monto Retirado: $${amount}`, 20, 70);
-        doc.text(`Nuevo Saldo: $${currentBalance}`, 20, 80);
+        doc.text(`Saldo Actual: $${currentBalance}`, 20, 80);
         doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 90);
 
         // Guardar el PDF como un archivo

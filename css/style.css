@@ -360,6 +360,15 @@ body {
 /*--------------------------------------PAGO DE SERVICIOS------------------------------------------------------------------*/
 
 /* Modal para Pagar Servicios */
+
+.modal {
+    z-index: 1050; /* Valor por defecto de Bootstrap, asegúrate de que sea mayor que otros elementos */
+}
+
+.modal-backdrop {
+    z-index: 1040; /* Valor por defecto de Bootstrap */
+}
+
 .modal-dialog-pagar {
     display: flex;
     align-items: center;

@@ -132,89 +132,76 @@
     </div>
 </div>
 
-
-            <!-- Modal para Retirar Dinero -->
-            <div class="modal fade" id="modalRetirarDinero" tabindex="-1" role="dialog"
-                aria-labelledby="modalRetirarDineroLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-retirar" role="document">
-                    <div class="modal-content deposito-page-container">
-                        <div class="modal-body">
-                            <h2>Retirar Dinero</h2>
-                            <form id="formRetiroDinero">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
-                                    </div>
-                                    <input type="number" id="inputMontoRetiro" class="form-control" placeholder="0.00"
-                                        min="0" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Retirar</button>
-                                <a href="../acciones.html" class="btn btn-secondary">Volver</a>
-                            </form>
-                            <p id="resultadoRetiro"></p>
-                            <div id="voucher-section"></div>
+<!-- Modal para Retirar Dinero -->
+<div class="modal fade" id="modalRetirarDinero" tabindex="-1" role="dialog" aria-labelledby="modalRetirarDineroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content retiro-page-container">
+            <div class="modal-body">
+                <h2>Retirar Dinero</h2>
+                <form id="formRetiroDinero">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
                         </div>
+                        <input type="number" id="inputMontoRetiro" class="form-control" placeholder="0.00" min="0" required>
                     </div>
+                    <button type="submit" class="btn btn-primary">Retirar</button>
+                    <a href="../acciones.html" class="btn btn-secondary">Volver</a>
+                </form>
+                <p id="resultadoRetiro"></p>
+                <div id="voucher-section-retirar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para generar un voucher de retiro -->
+<div class="modal fade" id="modalGenerarVoucherRetiro" tabindex="-1" role="dialog" aria-labelledby="modalGenerarVoucherRetiroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content retiro-page-container">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalGenerarVoucherRetiroLabel">Generar Voucher de Retiro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Generar Voucher de Retiro</h2>
+                <form id="formGenerarVoucherRetiro">
+                    <div class="retiro-button-container">
+                        <button type="button" id="btnGenerarVoucherRetiro" class="btn btn-primary">Generar</button>
+                        <button type="button" id="btnNoGenerarVoucherRetiro" class="btn btn-secondary">No Generar</button>
+                    </div>
+                </form>
+                <p id="resultadoGenerarVoucherRetiro"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para opciones de navegación -->
+<div class="modal fade" id="modalOpcionesNavegacionRetiro" tabindex="-1" role="dialog" aria-labelledby="modalOpcionesNavegacionRetiroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content retiro-page-container">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalOpcionesNavegacionRetiroLabel">Opciones de Navegación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Opciones de Navegación</h2>
+                <div class="retiro-button-container">
+                    <button type="button" id="btnVolverRetirar" class="btn btn-primary">Volver a Retirar</button>
+                    <a href="acciones.html" id="btnVolverMenu" class="btn btn-secondary">Volver al Menú Principal</a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <!-- Modal para generar un voucher -->
-            <div class="modal fade" id="modalGenerarVoucher" tabindex="-1" role="dialog"
-                aria-labelledby="modalGenerarVoucherLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content deposito-page-container">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalGenerarVoucherLabel">Generar Voucher</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h2>Generar Voucher</h2>
-                            <form id="formGenerarVoucher">
-                                <div class="input-group">
-                                    <input type="text" id="inputCodigoVoucher" class="form-control"
-                                        placeholder="Código del voucher" required>
-                                </div>
-                                <div class="deposito-button-container">
-                                    <button type="button" id="btnGenerarVoucher"
-                                        class="btn btn-primary">Generar</button>
-                                    <button type="button" id="btnNoGenerarVoucher" class="btn btn-secondary">No
-                                        Generar</button>
-                                </div>
-                            </form>
-                            <p id="resultadoGenerarVoucher"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Modal para opciones de navegación -->
-            <div class="modal fade" id="modalOpcionesNavegacion" tabindex="-1" role="dialog"
-                aria-labelledby="modalOpcionesNavegacionLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content deposito-page-container">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalOpcionesNavegacionLabel">Opciones de Navegación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h2>Opciones de Navegación</h2>
-                            <div class="deposito-button-container">
-                                <button type="button" id="btnVolverRetirar" class="btn btn-primary">Volver a
-                                    Retirar</button>
-                                <a href="acciones.html" id="btnVolverMenu" class="btn btn-secondary">Volver al Menú
-                                    Principal</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal para Consultar Saldo -->
+<!-- Modal para Consultar Saldo -->
             <div class="modal fade" id="modalConsultarSaldo" tabindex="-1" role="dialog"
                 aria-labelledby="modalConsultarSaldoLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-consultar" role="document">
@@ -228,43 +215,74 @@
                 </div>
             </div>
 
-            <!-- Modal para Pagar Servicios -->
-            <div class="modal fade" id="modalPagarServicios" tabindex="-1" role="dialog"
-                aria-labelledby="modalPagarServiciosLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-pagar" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="pagar-servicios-container">
-                                <h2>Pagar Servicios</h2>
-                                <form id="formPagarServicios">
-                                    <div class="form-group">
-                                        <label for="selectServicio">Selecciona un servicio</label>
-                                        <select id="selectServicio" class="form-control" required>
-                                            <option value="" disabled selected>Selecciona un servicio</option>
-                                            <option value="Energía Eléctrica">Energía Eléctrica</option>
-                                            <option value="Internet">Internet</option>
-                                            <option value="Telefonía">Telefonía</option>
-                                            <option value="Agua Potable">Agua Potable</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
-                                        </div>
-                                        <input type="number" id="inputMontoPago" class="form-control" placeholder="0.00"
-                                            min="0" step="0.01" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary-pagar">Pagar</button>
-                                    <a href="acciones.html" class="btn btn-secondary-pagar">Volver</a>
-                                </form>
-                                <p id="resultadoPago"></p>
-                            </div>
+<!-- Modal para Pagar Servicios -->
+<div class="modal fade" id="modalPagarServicios" tabindex="-1" role="dialog" aria-labelledby="modalPagarServiciosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-pagar" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="pagar-servicios-container">
+                    <h2>Pagar Servicios</h2>
+                    <form id="formPagarServicios">
+                        <div class="form-group">
+                            <label for="selectServicio">Selecciona un servicio</label>
+                            <select id="selectServicio" class="form-control" required>
+                                <option value="" disabled selected>Selecciona un servicio</option>
+                                <option value="Energía Eléctrica">Energía Eléctrica</option>
+                                <option value="Internet">Internet</option>
+                                <option value="Telefonía">Telefonía</option>
+                                <option value="Agua Potable">Agua Potable</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" id="inputMontoPago" class="form-control" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary-pagar" data-toggle="modal" data-target="#modalConfirmarGenerarVoucher">Pagar</button>
+                        <a href="acciones.html" class="btn btn-secondary-pagar">Volver</a>
+                    </form>
+                    <p id="resultadoPago"></p>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <!-- Modales para Historial -->
+<!-- Modal para Confirmar Generación de Voucher de Pago de Servicios -->
+<div class="modal fade" id="modalConfirmarGenerarVoucherPagoServicios" tabindex="-1" role="dialog" aria-labelledby="modalConfirmarGenerarVoucherPagoServiciosLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="confirmar-generar-voucher-pago-servicios-container">
+                    <h2>Confirmar Generación de Voucher</h2>
+                    <p>¿Deseas generar un voucher para el pago de servicios?</p>
+                    <button type="button" id="btnConfirmarVoucherPagoServiciosSi" class="btn btn-success" data-dismiss="modal">Sí</button>
+                    <button type="button" id="btnConfirmarVoucherPagoServiciosNo" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Opciones Posteriores -->
+<div class="modal fade" id="modalOpcionesPostPago" tabindex="-1" role="dialog" aria-labelledby="modalOpcionesPostPagoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="opciones-post-pago-container">
+                    <h2>Opciones Posteriores</h2>
+                    <p>¿Qué deseas hacer ahora?</p>
+                    <button type="button" id="btnVolverPagarOtroServicio" class="btn btn-primary">Pagar Otro Servicio</button>
+                    <button type="button" id="btnVolverMenuPrincipal" class="btn btn-secondary">Volver al Menú Principal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modales para Historial -->
             <div class="modal fade" id="modalTransacciones" tabindex="-1" role="dialog"
                 aria-labelledby="modalTransaccionesLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
