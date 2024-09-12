@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Función para generar un ID de voucher único
+    function generateVoucherId() {
+        return 'V' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+    }
+
     function loadTransactionHistory() {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         const container = document.getElementById('transaction-history');
@@ -42,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
             dateCell.textContent = transaction.date;
             idCell.textContent = transaction.id || 'N/A';
             descriptionCell.textContent = transaction.description;
-            voucherCell.textContent = transaction.voucher || 'N/A';
+            // Generar un nuevo número de voucher para cada transacción
+            voucherCell.textContent = generateVoucherId();
             voucherCell.classList.add('voucher-column');
 
             row.appendChild(dateCell);

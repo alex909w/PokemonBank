@@ -8,28 +8,40 @@ $(document).ready(function() {
         const amount = parseFloat(document.getElementById('inputMontoRetiro').value);
         const result = document.getElementById('resultadoRetiro');
         const voucherSection = document.getElementById('voucher-section-retirar');
+        const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
 
-        if (amount > 0) {
-            // Generar un ID único para el retiro
-            const id_retiro = generateUniqueId('RE', 5);
-
-            // Almacenar los datos del retiro en una variable para usarlos después
-            pendingWithdrawalData = { id_retiro, amount };
-
-            // Mostrar el modal de confirmar generación de voucher
-            $('#modalGenerarVoucherRetiro').modal('show');
-            
-        } else {
+        // Validaciones de monto
+        if (isNaN(amount) || amount <= 0) {
             result.textContent = 'Por favor, ingresa un monto válido.';
             voucherSection.innerHTML = ''; // Limpiar voucher si el monto es inválido
+            return;
         }
+
+        if (amount > currentBalance) {
+            result.textContent = 'No tienes suficiente saldo para realizar este retiro.';
+            voucherSection.innerHTML = ''; // Limpiar voucher si el monto es inválido
+            return;
+        }
+
+        // Generar un ID único para el retiro
+        const id_retiro = generateUniqueId('RE', 5);
+
+        // Almacenar los datos del retiro en una variable para usarlos después
+        pendingWithdrawalData = { id_retiro, amount };
+
+        // Mostrar el modal de confirmar generación de voucher
+        $('#modalGenerarVoucherRetiro').modal('show');
     });
 
     // Funcionalidad del botón "Generar" del modal de confirmar generación de voucher
     document.getElementById('btnGenerarVoucherRetiro').addEventListener('click', function() {
         if (pendingWithdrawalData) {
             const { id_retiro, amount } = pendingWithdrawalData;
-            const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+            let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+
+            // Restar el monto del saldo actual
+            currentBalance -= amount;
+            localStorage.setItem('balance', currentBalance);
 
             // Registrar la transacción
             recordTransaction(id_retiro, `Retiro de Dinero: $${amount}`);
@@ -84,29 +96,48 @@ $(document).ready(function() {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         const date = new Date().toLocaleString();
 
-        transactions.push({ id_retiro, description, date });
+        transactions.push({ id: id_retiro, description, date });
         localStorage.setItem('transactions', JSON.stringify(transactions));
     }
 
     // Función para generar el voucher en formato PDF
     function generateVoucherPDF(id_retiro, amount, currentBalance) {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const doc = new jsPDF({
+            unit: 'mm',
+            format: [100, 150], // Tamaño tipo recibo
+        });
 
         const date = new Date().toLocaleString();
         const accountNumber = 'XXX-XXXX-XXXX-4321'; // Número de cuenta con los primeros dígitos ocultos
         const userName = 'Ash Ketchum'; // Nombre del usuario
 
-        doc.setFontSize(16);
-        doc.text('Voucher de Retiro de Dinero', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Fecha y Hora: ${date}`, 20, 30);
-        doc.text(`Nombre: ${userName}`, 20, 40);
-        doc.text(`Número de Cuenta: ${accountNumber}`, 20, 50);
-        doc.text(`ID de Transacción: ${id_retiro}`, 20, 60);
-        doc.text(`Monto Retirado: $${amount}`, 20, 70);
-        doc.text(`Saldo Actual: $${currentBalance}`, 20, 80);
-        doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 90);
+        // Estilos de recibo con bordes y centrar texto
+        doc.setFillColor(255, 255, 255); // Fondo blanco
+        doc.rect(0, 0, 100, 150, 'F'); // Tamaño del recibo
+        doc.setDrawColor(0, 0, 0); // Color del borde
+        doc.setLineWidth(0.5);
+        doc.rect(1, 1, 98, 148); // Borde del voucher
+
+        doc.setFont("Courier", "normal");
+        doc.setFontSize(10);
+
+        // Centrar texto
+        const centerText = (text, y) => {
+            const textWidth = doc.getTextWidth(text);
+            const x = (100 - textWidth) / 2; // Centrar horizontalmente
+            doc.text(text, x, y);
+        };
+
+        // Información del voucher
+        centerText('Voucher de Retiro de Dinero', 15);
+        centerText(`Fecha y Hora: ${date}`, 25);
+        centerText(`Nombre: ${userName}`, 35);
+        centerText(`Número de Cuenta: ${accountNumber}`, 45);
+        centerText(`ID de Transacción: ${id_retiro}`, 55);
+        centerText(`Monto Retirado: $${amount}`, 65);
+        centerText(`Saldo Actual: $${currentBalance}`, 75);
+        centerText('Gracias por utilizar Pokémon Bank!', 85);
 
         // Guardar el PDF como un archivo
         const pdfDataUri = doc.output('datauristring');

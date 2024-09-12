@@ -1,132 +1,161 @@
 $(document).ready(function() {
-    // Variables para almacenar los datos necesarios
     let pendingPaymentData = null;
-    let voucherGenerated = false; // Bandera para verificar si el voucher ya se generó
+    let voucherGenerated = false;
 
-    // Funcionalidad del formulario de pago de servicios
     document.getElementById('formPagarServicios').addEventListener('submit', function(event) {
         event.preventDefault();
         const amount = parseFloat(document.getElementById('inputMontoPago').value);
         const result = document.getElementById('resultadoPago');
+        const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
 
-        if (amount > 0) {
-            // Generar un ID único para el pago
-            const id_pago = generateUniqueId('PA', 5);
+        // Captura del nombre del servicio
+        const serviceName = document.getElementById('selectServicio').value;
 
-            // Almacenar los datos del pago en una variable para usarlos después
-            pendingPaymentData = { id_pago, amount };
-
-            // Mostrar el modal de confirmar generación de voucher
-            $('#modalConfirmarGenerarVoucherPagoServicios').modal('show');
-        } else {
+        // Validar monto y saldo
+        if (isNaN(amount) || amount <= 0) {
             result.textContent = 'Por favor, ingresa un monto válido.';
+            return;
         }
+
+        if (amount > currentBalance) {
+            result.textContent = 'No tienes suficiente saldo para realizar este pago.';
+            return;
+        }
+
+        if (!serviceName) {
+            result.textContent = 'Por favor, selecciona un servicio.';
+            return;
+        }
+
+        // Generar un ID único
+        const id_pago = generateUniqueId('PA', 5);
+        pendingPaymentData = { id_pago, amount, serviceName };
+
+        // Mostrar modal de confirmación
+        $('#modalConfirmarGenerarVoucherPagoServicios').modal('show');
     });
 
-    // Funcionalidad del botón "Sí" del modal de confirmar generación de voucher
     document.getElementById('btnConfirmarVoucherPagoServiciosSi').addEventListener('click', function() {
-        if (pendingPaymentData && !voucherGenerated) { // Verificar si el voucher no se ha generado ya
-            const { id_pago, amount } = pendingPaymentData;
-            const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+        if (pendingPaymentData && !voucherGenerated) {
+            const { id_pago, amount, serviceName } = pendingPaymentData;
+            let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+
+            // Restar el monto del saldo
+            currentBalance -= amount;
+            localStorage.setItem('balance', currentBalance);
 
             // Registrar la transacción
-            recordTransaction(id_pago, `Pago de Servicios: $${amount}`);
+            recordTransaction(id_pago, `Pago de Servicios: $${amount} (${serviceName})`);
 
-            // Generar el voucher PDF
-            const voucherDataUri = generateVoucherPDF(id_pago, amount, currentBalance);
-
-            // Descargar el voucher PDF
+            // Generar el PDF del voucher
+            const voucherDataUri = generateVoucherPDF(id_pago, amount, currentBalance, serviceName);
             const link = document.createElement('a');
             link.href = voucherDataUri;
             link.download = 'Pago_servicios.pdf';
             link.click();
 
-            // Marcar que el voucher ya ha sido generado
             voucherGenerated = true;
-
-            // Limpiar los datos pendientes
             pendingPaymentData = null;
 
-            // Mostrar el modal de opciones posteriores
             $('#modalOpcionesPostPago').modal('show');
         }
 
-        // Cerrar el modal de confirmar generación de voucher
         $('#modalConfirmarGenerarVoucherPagoServicios').modal('hide');
     });
 
-    // Funcionalidad del botón "No" del modal de confirmar generación de voucher
     document.getElementById('btnConfirmarVoucherPagoServiciosNo').addEventListener('click', function() {
-        // Limpiar los datos pendientes
         pendingPaymentData = null;
-
-        // Mostrar el modal de opciones posteriores
         $('#modalOpcionesPostPago').modal('show');
-
-        // Cerrar el modal de confirmar generación de voucher
         $('#modalConfirmarGenerarVoucherPagoServicios').modal('hide');
     });
 
-    // Funcionalidad del botón para volver a pagar otro servicio
     document.getElementById('btnVolverPagarOtroServicio').addEventListener('click', function() {
-        // Limpiar el campo de entrada y el resultado
         document.getElementById('inputMontoPago').value = '';
         document.getElementById('resultadoPago').textContent = '';
-        // Mostrar el modal de pago de servicios
         $('#modalPagarServicios').modal('show');
-        // Cerrar el modal de opciones posteriores
         $('#modalOpcionesPostPago').modal('hide');
-
-        // Resetear la bandera de voucher generado
         voucherGenerated = false;
     });
 
-    // Funcionalidad del botón para volver al menú principal
     document.getElementById('btnVolverMenuPrincipal').addEventListener('click', function() {
-        window.location.href = 'acciones.html'; // Volver al menú de acciones
+        window.location.href = 'acciones.html';
     });
 
-    // Función para registrar la transacción
     function recordTransaction(id_pago, description) {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         const date = new Date().toLocaleString();
-
-        transactions.push({ id_pago, description, date });
+        transactions.push({ id: id_pago, description, date });
         localStorage.setItem('transactions', JSON.stringify(transactions));
     }
 
-    // Función para generar el voucher en formato PDF
-    function generateVoucherPDF(id_pago, amount, currentBalance) {
+    function generateVoucherPDF(id_pago, amount, currentBalance, serviceName) {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        const date = new Date().toLocaleString();
+        const doc = new jsPDF({
+            unit: 'mm',
+            format: [100, 150], // Tamaño de recibo 100mm x 150mm
+        });
+    
+        // Configuración de colores y fuentes
+        doc.setFillColor(255, 255, 255); // Color de fondo blanco
+        doc.rect(0, 0, 100, 150, 'F'); // Tamaño del recibo
+    
+        doc.setDrawColor(0, 0, 0); // Color del borde
+        doc.setLineWidth(0.5);
+        doc.rect(1, 1, 98, 148); // Borde del recibo
+    
+        // Fuente y tamaño
+        doc.setFont("Courier", "normal");
+        doc.setFontSize(10);
+    
+        // Centrar texto
+        const centerText = (text, y) => {
+            const textWidth = doc.getTextWidth(text);
+            const x = (100 - textWidth) / 2; // Centrar horizontalmente
+            doc.text(text, x, y);
+        };
+    
+        // Agregar descripción en la parte superior
+        centerText('Voucher de Pago de Servicios', 15);
+    
+        // Información
+        const lineHeight = 10;
+        let verticalOffset = 30; // Inicio del texto
+    
+        centerText(`Fecha y Hora: ${new Date().toLocaleString()}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        centerText(`Nombre: ${'Ash Ketchum'}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        // Obtener el número de cuenta y mostrar solo los últimos 4 dígitos
         const accountNumber = 'XXXX-4321'; // Número de cuenta con los primeros dígitos ocultos
-        const userName = 'Ash Ketchum'; // Nombre del usuario
-
-        doc.setFontSize(16);
-        doc.text('Voucher de Pago de Servicios', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Fecha y Hora: ${date}`, 20, 30);
-        doc.text(`Nombre: ${userName}`, 20, 40);
-        doc.text(`Número de Cuenta: ${accountNumber}`, 20, 50);
-        doc.text(`ID de Transacción: ${id_pago}`, 20, 60);
-        doc.text(`Monto Pagado: $${amount}`, 20, 70);
-        doc.text(`Saldo Actual: $${currentBalance}`, 20, 80);
-        doc.text(`Gracias por utilizar Pokémon Bank!`, 20, 90);
-
-        // Guardar el PDF como un archivo
-        const pdfDataUri = doc.output('datauristring');
-        return pdfDataUri; // Devuelve la cadena de datos URI del PDF
+        centerText(`Número de Cuenta: ${accountNumber}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        centerText(`ID de Transacción: ${id_pago}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        // Agregar nombre del servicio
+        centerText(`Servicio: ${serviceName}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        centerText(`Monto Pagado: $${amount}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        centerText(`Saldo Actual: $${currentBalance}`, verticalOffset);
+        verticalOffset += lineHeight;
+    
+        centerText('Gracias por utilizar Pokémon Bank!', verticalOffset);
+    
+        // Guardar y descargar el PDF como 'Pago_servicios.pdf'
+        doc.save('Pago_servicios.pdf');
     }
-
-    // Función para generar un ID único
+    
     function generateUniqueId(prefix, length) {
-        const digits = '1234567890';
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         let id = prefix;
         for (let i = 0; i < length; i++) {
-            const digit = digits[Math.floor(Math.random() * digits.length)];
-            id += digit;
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         return id;
     }
