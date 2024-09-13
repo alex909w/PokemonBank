@@ -96,8 +96,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="depositoVoucherModalLabel">Generar Voucher</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -105,7 +103,7 @@
             </div>
             <div class="modal-footer">
                 <button id="depositoNoVoucher" type="button" class="btn btn-secondary">No</button>
-                <button id="depositoGenerateVoucher" type="button" class="btn btn-primary">Sí, Generar Voucher</button>
+                <button id="depositoGenerateVoucher" type="button" class="btn btn-primary">Si</button>
             </div>
         </div>
     </div>
@@ -117,9 +115,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="depositoOptionModalLabel">¿Qué deseas hacer ahora?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 Selecciona una opción para continuar.
@@ -166,23 +161,19 @@
 <!-- Modal para generar un voucher de retiro -->
 <div class="modal fade" id="modalGenerarVoucherRetiro" tabindex="-1" role="dialog" aria-labelledby="modalGenerarVoucherRetiroLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content retiro-page-container">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalGenerarVoucherRetiroLabel">Generar Voucher de Retiro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h2>Generar Voucher de Retiro</h2>
-                <form id="formGenerarVoucherRetiro">
-                    <div class="retiro-button-container">
-                        <button type="button" id="btnGenerarVoucherRetiro" class="btn btn-primary">Generar</button>
-                        <button type="button" id="btnNoGenerarVoucherRetiro" class="btn btn-secondary">No Generar</button>
-                    </div>
-                </form>
-                <p id="resultadoGenerarVoucherRetiro"></p>
+                <h2>¿Deseas generar un voucher del retiro?</h2>
             </div>
+                <div class="modal-footer">
+                        <button type="button" id="btnNoGenerarVoucherRetiro" class="btn btn-secondary">No</button>
+                        <button type="button" id="btnGenerarVoucherRetiro" class="btn btn-primary">Si</button>
+                </div>        
+            <p id="resultadoGenerarVoucherRetiro"></p>
         </div>
     </div>
 </div>
@@ -193,9 +184,6 @@
         <div class="modal-content retiro-page-container">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalOpcionesNavegacionRetiroLabel">Opciones de Navegación</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <h2>Opciones de Navegación</h2>
@@ -263,10 +251,13 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="confirmar-generar-voucher-pago-servicios-container">
-                    <h2>Confirmar Generación de Voucher</h2>
-                    <p>¿Deseas generar un voucher para el pago de servicios?</p>
-                    <button type="button" id="btnConfirmarVoucherPagoServiciosSi" class="btn btn-success" data-dismiss="modal">Sí</button>
-                    <button type="button" id="btnConfirmarVoucherPagoServiciosNo" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <div class="modal-body">
+                    ¿Deseas generar un voucher para el pago de servicios?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" id="btnConfirmarVoucherPagoServiciosNo" class="btn btn-secondary" >No</button>
+                    <button type="button" id="btnConfirmarVoucherPagoServiciosSi" class="btn btn-primary">Sí</button>
+                    </div>
                 </div>
             </div>
         </div>

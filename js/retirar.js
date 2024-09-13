@@ -43,8 +43,8 @@ $(document).ready(function() {
             currentBalance -= amount;
             localStorage.setItem('balance', currentBalance);
 
-            // Registrar la transacción
-            recordTransaction(id_retiro, `Retiro de Dinero: $${amount}`);
+            // **Registrar la transacción de retiro**
+            recordTransaction(id_retiro, `Retiro: $${amount.toFixed(2)}`);
 
             // Generar el voucher PDF
             const voucherDataUri = generateVoucherPDF(id_retiro, amount, currentBalance);
@@ -67,13 +67,17 @@ $(document).ready(function() {
     });
 
     // Funcionalidad del botón "No Generar" del modal de confirmar generación de voucher
-    document.getElementById('btnNoGenerarVoucherRetiro').addEventListener('click', function() {
-        // Limpiar los datos pendientes
-        pendingWithdrawalData = null;
+document.getElementById('btnNoGenerarVoucherRetiro').addEventListener('click', function() {
+    // Limpiar los datos pendientes
+    pendingWithdrawalData = null;
 
-        // Cerrar el modal de confirmar generación de voucher
-        $('#modalGenerarVoucherRetiro').modal('hide');
-    });
+    // Cerrar el modal de confirmar generación de voucher
+    $('#modalGenerarVoucherRetiro').modal('hide');
+
+    // Mostrar el modal de opciones
+    $('#modalOpcionesNavegacionRetiro').modal('show');
+});
+
 
     // Funcionalidad del botón para volver a retirar dinero
     document.getElementById('btnVolverRetirar').addEventListener('click', function() {

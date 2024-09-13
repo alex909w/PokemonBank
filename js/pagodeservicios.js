@@ -45,7 +45,7 @@ $(document).ready(function() {
             localStorage.setItem('balance', currentBalance);
 
             // Registrar la transacción
-            recordTransaction(id_pago, `Pago de Servicios: $${amount} (${serviceName})`);
+            recordTransaction(id_pago, `Pago de ${serviceName}: $${amount}`);
 
             // Generar el PDF del voucher
             const voucherDataUri = generateVoucherPDF(id_pago, amount, currentBalance, serviceName);
@@ -94,63 +94,39 @@ $(document).ready(function() {
             unit: 'mm',
             format: [100, 150], // Tamaño de recibo 100mm x 150mm
         });
-    
-        // Configuración de colores y fuentes
+
         doc.setFillColor(255, 255, 255); // Color de fondo blanco
         doc.rect(0, 0, 100, 150, 'F'); // Tamaño del recibo
-    
         doc.setDrawColor(0, 0, 0); // Color del borde
         doc.setLineWidth(0.5);
         doc.rect(1, 1, 98, 148); // Borde del recibo
-    
-        // Fuente y tamaño
+
         doc.setFont("Courier", "normal");
         doc.setFontSize(10);
-    
+
         // Centrar texto
         const centerText = (text, y) => {
             const textWidth = doc.getTextWidth(text);
             const x = (100 - textWidth) / 2; // Centrar horizontalmente
             doc.text(text, x, y);
         };
-    
-        // Agregar descripción en la parte superior
+
+        // Agregar información al PDF
         centerText('Voucher de Pago de Servicios', 15);
-    
-        // Información
-        const lineHeight = 10;
-        let verticalOffset = 30; // Inicio del texto
-    
-        centerText(`Fecha y Hora: ${new Date().toLocaleString()}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        centerText(`Nombre: ${'Ash Ketchum'}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        // Obtener el número de cuenta y mostrar solo los últimos 4 dígitos
-        const accountNumber = 'XXXX-4321'; // Número de cuenta con los primeros dígitos ocultos
-        centerText(`Número de Cuenta: ${accountNumber}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        centerText(`ID de Transacción: ${id_pago}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        // Agregar nombre del servicio
-        centerText(`Servicio: ${serviceName}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        centerText(`Monto Pagado: $${amount}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        centerText(`Saldo Actual: $${currentBalance}`, verticalOffset);
-        verticalOffset += lineHeight;
-    
-        centerText('Gracias por utilizar Pokémon Bank!', verticalOffset);
-    
+        centerText(`Fecha y Hora: ${new Date().toLocaleString()}`, 25);
+        centerText(`Nombre: ${'Ash Ketchum'}`, 35);
+        centerText(`Número de Cuenta: XXXX-4321`, 45);
+        centerText(`ID de Transacción: ${id_pago}`, 55);
+        centerText(`Servicio: ${serviceName}`, 65);
+        centerText(`Monto Pagado: $${amount}`, 75);
+        centerText(`Saldo Actual: $${currentBalance}`, 85);
+        centerText('Gracias por utilizar Pokémon Bank!', 95);
+
         // Guardar y descargar el PDF como 'Pago_servicios.pdf'
-        doc.save('Pago_servicios.pdf');
+        const pdfDataUri = doc.output('datauristring');
+        return pdfDataUri; // Devuelve la cadena de datos URI del PDF
     }
-    
+
     function generateUniqueId(prefix, length) {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         let id = prefix;
