@@ -529,27 +529,3 @@ body {
 }
 
 /*----------------------------------------------------Grafica--------------------------------------------------*/
-
-.modal-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.image-container {
-    width: 100%; /* O el ancho que desees */
-    max-width: 600px; /* Ancho máximo de la imagen */
-    margin: 20px 0; /* Espacio arriba y abajo de la imagen */
-}
-
-.image-container img {
-    width: 100%; /* La imagen ocupará el ancho del contenedor */
-    height: auto; /* Mantiene la proporción */
-}
-
-.button-container {
-    margin-top: 20px; /* Espacio entre el texto y el botón */
-}
-

@@ -343,14 +343,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Imagen estática para simular gráfica -->
-                <div class="image-container">
-                    <img src="img/acciones/grafico-placeholder.png" alt="Gráfico de Transacciones" class="img-fluid">
-                </div>
-                <!-- Botón Volver -->
-                <div class="button-container">
-                    <a href="acciones.html" class="btn btn-secondary">Volver</a>
-                </div>
+                <!-- Aquí va el canvas para la gráfica -->
+                <canvas id="transaccionesChart" width="400" height="200"></canvas>
+            </div>
+            <div class="modal-footer">
+                <a href="acciones.html" class="btn btn-secondary">Volver</a>
             </div>
         </div>
     </div>
@@ -358,12 +355,12 @@
 
 
 
-
-    <!-- Scripts de Bootstrap y jQuery -->
+<!-- Scripts de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/scripts.js"></script>
+<script src="js/scripts.js"></script>
+    
 
 </body>
 
