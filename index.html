@@ -7,19 +7,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styleindex.css">
     <link rel="icon" href="img/icono/favicon.jpg" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script> <!-- Agrega esta línea -->
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="login-container text-center">
             <img src="img/login/logo.svg" alt="Pokémon Bank Logo" class="pokemon-logo">
-            <form action="acciones.html" method="GET">
+            <form id="loginForm" method="GET">
                 <div class="form-group">
                     <label for="pin" class="pin-label">Ingrese su PIN</label>
                     <input type="password" id="pin" name="pin" class="form-control pin-input" maxlength="4" placeholder="****" required>
                 </div>
                 <button type="submit" class="btn btn-primary btn-login">Ingresar</button>
             </form>
+            <div id="error-message"></div> <!-- Asegúrate de que este div esté aquí -->
         </div>
     </div>
+    <script src="js/login.js"></script> <!-- Asegúrate de que el script esté correctamente enlazado -->
 </body>
 </html>
