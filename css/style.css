@@ -474,18 +474,17 @@ body {
 
 /*----------------------------------------------------------------Historial-----------------------------------------------*/
 
-.modal-dialog {
-    max-height: 90vh; /* Limita la altura del modal al 90% del viewport */
-    margin: auto; /* Centra el modal vertical y horizontalmente */
-    width: 100%; /* Asegura que el modal ocupe toda la pantalla disponible en horizontal */
+.modal-custom-dialog {
+    max-width: 90%; /* Ajusta según sea necesario */
+    max-height: 90%;
+    margin: auto;
 }
 
-.modal-content {
-    max-height: 90vh; /* Limita la altura del contenido al 90% del viewport */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; /* Evita el desbordamiento del contenido fuera del modal */
+.modal-custom-content {
+    height: auto; /* Permite que la altura se ajuste al contenido */
+    overflow: hidden; /* Evita el scroll innecesario */
 }
+
 
 .modal-header {
     background-color: #f8f9fa;
@@ -495,10 +494,8 @@ body {
 }
 
 .modal-body {
-    flex: 1;
-    overflow-y: auto; /* Habilitar desplazamiento solo en el cuerpo del modal */
-    padding: 20px;
-    max-height: 60vh; /* Limita el área de desplazamiento para no exceder el tamaño de la pantalla */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    max-height: calc(90vh - 100px); /* Ajusta la altura máxima */
 }
 
 .modal-footer {
@@ -533,61 +530,26 @@ body {
 
 /*----------------------------------------------------Grafica--------------------------------------------------*/
 
-/* Asegura que el modal cubra toda la pantalla */
-.modal-fullscreen .modal-dialog {
-    max-width: 100%;
-    width: 100vw; /* Ancho completo de la ventana */
-    height: 100vh; /* Alto completo de la ventana */
-    margin: 0;
-}
-
-.modal-fullscreen .modal-content {
-    height: 100%;
-    width: 100%;
-    border: 0;
-    border-radius: 0;
+.modal-body {
     display: flex;
     flex-direction: column;
-}
-
-.modal-fullscreen .modal-body {
-    flex: 1;
-    overflow: hidden; /* Asegura que el contenido no se desborde */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding-bottom: 0; /* Elimina padding inferior para ajustar la altura del contenedor */
-}
-
-.chart-container {
-    width: 100%;
-    height: calc(100% - 60px); /* Ajusta la altura para que la gráfica ocupe más espacio */
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px; /* Añade un poco de padding si es necesario */
-}
-
-.chart-container h1 {
-    color: #000000; /* Ajusta el color del texto según sea necesario */
-    margin-bottom: 20px;
-}
-
-.chart-container canvas {
-    width: 95%; /* Ajusta el ancho del canvas según sea necesario */
-    height: 70vh; /* Ajusta la altura del canvas según sea necesario */
-    max-width: 100%;
-    max-height: 80%; /* Asegura que la gráfica use el alto máximo disponible */
-}
-
-.modal-footer {
-    margin-top: auto;
-    background: transparent; /* Ajusta según sea necesario */
-    border: 0;
-    padding: 20px; /* Ajusta el espaciado según sea necesario */
     text-align: center;
-    position: relative;
-    bottom: 0; /* Asegura que el pie de página esté en la parte inferior */
 }
+
+.image-container {
+    width: 100%; /* O el ancho que desees */
+    max-width: 600px; /* Ancho máximo de la imagen */
+    margin: 20px 0; /* Espacio arriba y abajo de la imagen */
+}
+
+.image-container img {
+    width: 100%; /* La imagen ocupará el ancho del contenedor */
+    height: auto; /* Mantiene la proporción */
+}
+
+.button-container {
+    margin-top: 20px; /* Espacio entre el texto y el botón */
+}
+
