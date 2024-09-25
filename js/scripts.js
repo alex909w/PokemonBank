@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Verifica si el canvas existe antes de crear el gráfico
-    var canvas = document.getElementById('transaccionesChart');
+    let canvas = document.getElementById('transaccionesChart');
     
     if (canvas) {
-        var ctx = canvas.getContext('2d');
-        var transaccionesChart = new Chart(ctx, {
+        let ctx = canvas.getContext('2d');
+        let transaccionesChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Depositar', 'Retirar', 'Energía Eléctrica', 'Agua Potable', 'Teléfono', 'Internet'],
