@@ -22,8 +22,6 @@ body {
     flex-direction: column; /* Apila la imagen y el texto en una columna */
     align-items: center; /* Centra la imagen y el texto horizontalmente */
     justify-content: center; 
-    width: 100%;
-    padding: 15px; /* Reducido para dar más espacio al texto */
     display: flex;
     width: 100%;
     padding: 15px; /* Espaciado interno */
@@ -39,7 +37,6 @@ body {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden; /* Oculta el desbordamiento */
     text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es muy largo */
-
 }
 
 .btn-action img {
