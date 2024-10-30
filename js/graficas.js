@@ -18,55 +18,106 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let depositData = prepareData(deposits);
         let withdrawalData = prepareData(withdrawals);
-        let paymentData = prepareData(payments);
 
-        let labels = Array.from(new Set([...depositData.labels, ...withdrawalData.labels, ...paymentData.labels]));
+        // Crear un objeto para almacenar datos de pagos de servicios por tipo de servicio
+        let servicesData = {};
+
+        payments.forEach(payment => {
+            const serviceName = payment.description.split(' ')[2]; // Suponiendo que el nombre del servicio está en la descripción
+            if (!servicesData[serviceName]) {
+                servicesData[serviceName] = {
+                    labels: [],
+                    data: []
+                };
+            }
+            const paymentDate = payment.date.split('T')[0]; // Quitar hora
+            const amount = parseFloat(payment.description.replace(/[^0-9.-]/g, '')) || 0;
+
+            if (!servicesData[serviceName].labels.includes(paymentDate)) {
+                servicesData[serviceName].labels.push(paymentDate);
+                servicesData[serviceName].data.push(amount);
+            } else {
+                const index = servicesData[serviceName].labels.indexOf(paymentDate);
+                servicesData[serviceName].data[index] += amount; // Sumar montos en la misma fecha
+            }
+        });
+
+        // Crear etiquetas únicas para todos los servicios
+        let allLabels = Array.from(new Set([...depositData.labels, ...withdrawalData.labels, ...Object.values(servicesData).flatMap(service => service.labels)]));
+
+        // Preparar los datasets para el gráfico
+        const datasets = [
+            {
+                label: 'Depósitos',
+                data: allLabels.map(label => {
+                    const index = depositData.labels.indexOf(label);
+                    return index !== -1 ? depositData.data[index] : 0;
+                }),
+                borderColor: '#4CAF50',
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 5,
+            },
+            {
+                label: 'Retiros',
+                data: allLabels.map(label => {
+                    const index = withdrawalData.labels.indexOf(label);
+                    return index !== -1 ? withdrawalData.data[index] : 0;
+                }),
+                borderColor: '#FF5722',
+                backgroundColor: 'rgba(255, 87, 34, 0.2)',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 5,
+            },
+        ];
+
+        // Generar colores aleatorios
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Añadir cada servicio como un dataset con colores aleatorios
+        for (const [serviceName, data] of Object.entries(servicesData)) {
+            const serviceData = allLabels.map(label => {
+                const index = data.labels.indexOf(label);
+                return index !== -1 ? data.data[index] : 0; // Usar 0 si no hay datos
+            });
+
+            datasets.push({
+                label: `Pago de ${serviceName}`,
+                data: serviceData,
+                borderColor: getRandomColor(),
+                backgroundColor: 'rgba(0, 0, 0, 0.0)',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 5,
+            });
+        }
 
         const transactionsChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Depósitos',
-                        data: depositData.data,
-                        borderColor: '#4CAF50',
-                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 5,
-                    },
-                    {
-                        label: 'Retiros',
-                        data: withdrawalData.data,
-                        borderColor: '#FF5722',
-                        backgroundColor: 'rgba(255, 87, 34, 0.2)',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 5,
-                    },
-                    {
-                        label: 'Pagos de Servicios',
-                        data: paymentData.data,
-                        borderColor: '#FFCB05',
-                        backgroundColor: 'rgba(255, 203, 5, 0.2)',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 5,
-                    }
-                ]
+                labels: allLabels,
+                datasets: datasets
             },
             options: {
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#000000' // Cambia a color deseado
+                            color: '#000000' 
                         }
                     },
                     tooltip: {
                         enabled: true,
                         mode: 'nearest',
-                        intersect: true,
+                        intersect: false, 
                         callbacks: {
                             label: function(tooltipItem) {
                                 return `${tooltipItem.dataset.label}: $${tooltipItem.raw.toFixed(2)}`;
@@ -77,27 +128,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         bodyColor: '#FFFFFF',
                         borderColor: '#FFFFFF',
                         borderWidth: 1
-                    },
-                    zoom: {
-                        // Configuración de zoom
-                        pan: {
-                            enabled: true,
-                            mode: 'xy' // Habilita el desplazamiento en ambos ejes
-                        },
-                        zoom: {
-                            enabled: true,
-                            mode: 'xy', // Habilita el zoom en ambos ejes
-                            speed: 0.1, // Velocidad de zoom
-                            sensitivity: 3 // Sensibilidad del zoom
-                        }
-                    }
+                    },                    
                 },
                 scales: {
                     x: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Movimientos', // Solo se muestra "Movimientos" como título del eje X
+                            text: 'Movimientos',
                             color: '#000000'
                         },
                         ticks: {

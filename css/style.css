@@ -538,26 +538,11 @@ body {
     max-width: 100%;
     width: 100vw; /* Ancho completo de la ventana */
     height: 100vh; /* Alto completo de la ventana */
-    margin: 0;
 }
 
 .modal-fullscreen .modal-content {
     height: 100%;
     width: 100%;
-    border: 0;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-fullscreen .modal-body {
-    flex: 1;
-    overflow: hidden; /* Asegura que el contenido no se desborde */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 0; /* Elimina padding inferior para ajustar la altura del contenedor */
 }
 
 .chart-container {

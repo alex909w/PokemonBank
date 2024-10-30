@@ -8,6 +8,7 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     const errorMessage = document.getElementById('error-message');
 
     if (enteredPin === correctPin) {
+        
         // Guardar los datos del usuario en localStorage
         localStorage.setItem('userName', 'Ash Ketchum');
         localStorage.setItem('userAccount', '0987654321');

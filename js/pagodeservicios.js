@@ -44,8 +44,8 @@ $(document).ready(function() {
             currentBalance -= amount;
             localStorage.setItem('balance', currentBalance);
 
-            // Registrar la transacción
-            recordTransaction(id_pago, `Pago de ${serviceName}: $${amount}`);
+            // **Registrar la transacción independientemente de la generación del voucher**
+            recordTransaction(id_pago, `Pago de ${serviceName}: $${amount.toFixed(2)}`);
 
             // Generar el PDF del voucher
             const voucherDataUri = generateVoucherPDF(id_pago, amount, currentBalance, serviceName);
@@ -64,8 +64,21 @@ $(document).ready(function() {
     });
 
     document.getElementById('btnConfirmarVoucherPagoServiciosNo').addEventListener('click', function() {
-        pendingPaymentData = null;
-        $('#modalOpcionesPostPago').modal('show');
+        if (pendingPaymentData) {
+            const { id_pago, amount, serviceName } = pendingPaymentData;
+            let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
+
+            // Restar el monto del saldo
+            currentBalance -= amount;
+            localStorage.setItem('balance', currentBalance);
+
+            // **Registrar la transacción aunque no se genere el voucher**
+            recordTransaction(id_pago, `Pago de ${serviceName}: $${amount.toFixed(2)}`);
+
+            pendingPaymentData = null;
+            $('#modalOpcionesPostPago').modal('show');
+        }
+
         $('#modalConfirmarGenerarVoucherPagoServicios').modal('hide');
     });
 
@@ -118,8 +131,8 @@ $(document).ready(function() {
         centerText(`Número de Cuenta: XXXX-4321`, 45);
         centerText(`ID de Transacción: ${id_pago}`, 55);
         centerText(`Servicio: ${serviceName}`, 65);
-        centerText(`Monto Pagado: $${amount}`, 75);
-        centerText(`Saldo Actual: $${currentBalance}`, 85);
+        centerText(`Monto Pagado: $${amount.toFixed(2)}`, 75);
+        centerText(`Saldo Actual: $${currentBalance.toFixed(2)}`, 85);
         centerText('Gracias por utilizar Pokémon Bank!', 95);
 
         // Guardar y descargar el PDF como 'Pago_servicios.pdf'

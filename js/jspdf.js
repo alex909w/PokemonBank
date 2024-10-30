@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Textos a mostrar en el encabezado del documento pdf
     const usuario = localStorage.getItem('userName') || "Usuario Desconocido";
     const numero_cuenta = localStorage.getItem('userAccount') || "N/A";
+    const maskedAccountNumber = numero_cuenta.replace(/\d(?=\d{4})/g, 'X'); // Enmascarar todos menos los últimos 4 dígitos
 
     // Encabezados para la tabla
     const encabezados = [['ID', 'TRANSACCIÓN', 'CANTIDAD', 'HORA', 'FECHA']];
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.setFontSize(12);
         doc.setTextColor('#777');
         doc.text(`Usuario: ${usuario}`, 15, 40);
-        doc.text(`Número de cuenta: ${numero_cuenta}`, 15, 48);
+        doc.text(`Número de cuenta: ${maskedAccountNumber}`, 15, 48);
 
         // Generar la tabla con autoTable
         doc.autoTable({

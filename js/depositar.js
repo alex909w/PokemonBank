@@ -37,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
         const id = localStorage.getItem('last_deposito_id');
 
-        // Generar y abrir el PDF del voucher
-        const pdfData = generateVoucherPDF(id, amount, currentBalance);
-        window.open(pdfData, '_blank');
+        // Generar y descargar el PDF del voucher directamente
+        generateVoucherPDF(id, amount, currentBalance); // Cambia a esto para que maneje la descarga
 
         // Cerrar el modal de voucher y mostrar el modal de opciones
         $('#depositoVoucherModal').modal('hide');

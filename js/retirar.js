@@ -67,17 +67,28 @@ $(document).ready(function() {
     });
 
     // Funcionalidad del botón "No Generar" del modal de confirmar generación de voucher
-document.getElementById('btnNoGenerarVoucherRetiro').addEventListener('click', function() {
-    // Limpiar los datos pendientes
-    pendingWithdrawalData = null;
+    document.getElementById('btnNoGenerarVoucherRetiro').addEventListener('click', function() {
+        if (pendingWithdrawalData) {
+            const { id_retiro, amount } = pendingWithdrawalData;
+            let currentBalance = parseFloat(localStorage.getItem('balance')) || 0;
 
-    // Cerrar el modal de confirmar generación de voucher
-    $('#modalGenerarVoucherRetiro').modal('hide');
+            // Restar el monto del saldo actual
+            currentBalance -= amount;
+            localStorage.setItem('balance', currentBalance);
 
-    // Mostrar el modal de opciones
-    $('#modalOpcionesNavegacionRetiro').modal('show');
-});
+            // **Registrar la transacción de retiro aunque no se genere el voucher**
+            recordTransaction(id_retiro, `Retiro: $${amount.toFixed(2)}`);
 
+            // Limpiar los datos pendientes
+            pendingWithdrawalData = null;
+
+            // Mostrar el modal de opciones
+            $('#modalOpcionesNavegacionRetiro').modal('show');
+        }
+
+        // Cerrar el modal de confirmar generación de voucher
+        $('#modalGenerarVoucherRetiro').modal('hide');
+    });
 
     // Funcionalidad del botón para volver a retirar dinero
     document.getElementById('btnVolverRetirar').addEventListener('click', function() {
