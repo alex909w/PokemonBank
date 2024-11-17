@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() 
+document.addEventListener('DOMContentLoaded', function() {
     // Recuperar los datos del usuario de localStorage
     const userName = localStorage.getItem('userName');
     const userAccount = localStorage.getItem('userAccount');

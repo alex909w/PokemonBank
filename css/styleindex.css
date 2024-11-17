@@ -1,5 +1,5 @@
 /* Estilo inspirado en los colores de Pokémon */
-body 
+body {
     background: url('../img/login/fondo.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100vh;

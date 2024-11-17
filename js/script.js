@@ -1,5 +1,5 @@
 // Validación del formulario de login con redirección a acciones.html
-document.getElementById('loginForm').addEventListener('submit', function(e) 
+document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const pin = document.getElementById('pin').value;
     

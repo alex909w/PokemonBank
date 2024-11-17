@@ -1,7 +1,7 @@
 // JSPDF LIBRARY 
 var doc = new jsPDF();
 
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () => {
     // Textos a mostrar en el encabezado del documento pdf
     const usuario = localStorage.getItem('userName') || "Usuario Desconocido";
     const numero_cuenta = localStorage.getItem('userAccount') || "N/A";
