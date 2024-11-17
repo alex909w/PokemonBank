@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => 
     document.getElementById('deposito-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const amount = parseFloat(document.getElementById('deposito-amount').value);

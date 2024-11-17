@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() 
     const modal = document.getElementById("graficosModal");
     const ctx = document.getElementById('transactionsChart').getContext('2d');
 

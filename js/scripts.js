@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () 
     // Verifica si el canvas existe antes de crear el gráfico
     var canvas = document.getElementById('transaccionesChart');
     

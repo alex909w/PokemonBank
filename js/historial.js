@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() 
     // Función para generar un ID de voucher único
     function generateVoucherId() {
         return 'V' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');

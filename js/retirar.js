@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() 
     // Variables para almacenar los datos necesarios
     let pendingWithdrawalData = null;
 
